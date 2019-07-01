@@ -126,7 +126,7 @@ function SignUp(props) {
 								}
 								onChange={e => setEmail(e.target.value)}
 							/>
-							{props.errors && props.errors.email && <span>{props.errors.email}</span>}
+							{props.errors && props.errors.email && <FormHelperText>{props.errors.email}</FormHelperText>}
 						</Grid>
 						<Grid item xs={12}>
 							<TextField

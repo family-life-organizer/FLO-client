@@ -13,8 +13,8 @@ class App extends Component {
 		return (
 			<Fragment>
 				<Switch>
+					<Route path='/app' component={FloApp} />
 					<Route path='/' component={Onboard} />
-					<PrivateRoute path='/app' component={FloApp} />
 				</Switch>
 			</Fragment>
 		);
