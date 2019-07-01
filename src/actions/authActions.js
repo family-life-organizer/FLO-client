@@ -24,4 +24,10 @@ export const doRegisterAccount = accountInfo => async dispatch => {
 
 export const doLogout = () => ({ type: types.LOGOUT });
 
-export const doWelcomeBack = () => ({ type: types.WELCOMEBACK });
+export const doWelcomeBack = () => {
+	const token = localStorage.getItem('login_token');
+	return {
+		type    : types.WELCOMEBACK,
+		payload : token,
+	};
+};

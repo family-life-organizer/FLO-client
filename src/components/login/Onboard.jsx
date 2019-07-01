@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
-const Onboard = ({ doLogin, doRegisterAccount }) => {
+const Onboard = ({ doLogin, isAuth, doRegisterAccount, history }) => {
 	const [ isLogin, setisLogin ] = useState(true);
-	const handleSubmit = values => {
-		isLogin ? doLogin(values) : doRegisterAccount(values);
+	const handleSubmit = async values => {
+		isLogin ? await doLogin(values) : await doRegisterAccount(values);
+		isAuth && history.push('/app');
 	};
 	const handleToggle = () => {
 		setisLogin(!isLogin);
@@ -23,4 +24,6 @@ const Onboard = ({ doLogin, doRegisterAccount }) => {
 	);
 };
 
-export default connect(null, { doLogin, doRegisterAccount })(Onboard);
+const mapStateToProps = state => ({ isAuth: state.auth.isAuth });
+
+export default connect(mapStateToProps, { doLogin, doRegisterAccount })(Onboard);

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default function() {
-	const token = localStorage.getItem('userToken');
+	const token = localStorage.getItem('login_token');
 
 	return axios.create({
 		baseURL : '',

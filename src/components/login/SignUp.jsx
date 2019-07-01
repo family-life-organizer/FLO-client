@@ -44,6 +44,12 @@ export default function SignUp(props) {
 	const [ password, setPassword ] = useState('');
 	const [ password2, setPassword2 ] = useState('');
 	const [ userName, setUserName ] = useState('');
+	const handleSubmit = e => {
+		e.preventDefault();
+		if (password === password2) {
+			this.props.handleSubmit({ email, password, userName });
+		}
+	};
 	return (
 		<Container component='main' maxWidth='xs'>
 			<CssBaseline />
@@ -54,7 +60,7 @@ export default function SignUp(props) {
 				<Typography component='h1' variant='h5'>
 					Sign up
 				</Typography>
-				<form className={classes.form} noValidate>
+				<form className={classes.form} noValidate onSubmit={handleSubmit}>
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<TextField
