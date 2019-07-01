@@ -1,6 +1,5 @@
 import types from '../actions';
 import jwt_decode from 'jwt-decode';
-import getFailedSnapshotTests from 'jest-util/build/getFailedSnapshotTests';
 
 const initialState = {
 	isAuth    : false,

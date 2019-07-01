@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,11 +13,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import purple from '@material-ui/core/colors/purple';
 
 const useStyles = makeStyles(theme => ({
 	'@global' : {
 		body : {
-			backgroundColor : theme.palette.common.white,
+			backgroundColor : '#FFFFFF',
 		},
 	},
 	paper     : {
@@ -38,16 +40,19 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-export default function SignUp(props) {
+function SignUp(props) {
 	const classes = useStyles();
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
 	const [ password2, setPassword2 ] = useState('');
 	const [ userName, setUserName ] = useState('');
+	const [ firstName, setFirstName ] = useState('');
+	const [ lastName, setLastName ] = useState('');
+
 	const handleSubmit = e => {
 		e.preventDefault();
 		if (password === password2) {
-			this.props.handleSubmit({ email, password, userName });
+			props.handleSubmit({ firstName, lastName, email, password, userName, password2 });
 		}
 	};
 	return (
@@ -60,8 +65,36 @@ export default function SignUp(props) {
 				<Typography component='h1' variant='h5'>
 					Sign up
 				</Typography>
-				<form className={classes.form} noValidate onSubmit={handleSubmit}>
+				<form className={classes.form} onSubmit={handleSubmit}>
 					<Grid container spacing={2}>
+						<Grid item xs={12} sm={6}>
+							<TextField
+								autoComplete='fname'
+								name='firstName'
+								variant='outlined'
+								required
+								fullWidth
+								id='firstName'
+								label='First Name'
+								autoFocus
+								value={firstName}
+								onChange={e => setFirstName(e.target.value)}
+							/>
+						</Grid>
+						<Grid item xs={12} sm={6}>
+							<TextField
+								variant='outlined'
+								required
+								fullWidth
+								id='lastName'
+								label='Last Name'
+								name='lastName'
+								autoComplete='lname'
+								value={lastName}
+								onChange={e => setLastName(e.target.value)}
+							/>
+							{props.errors && props.errors.first_name && <span>{props.errors.first_name}</span>}
+						</Grid>
 						<Grid item xs={12}>
 							<TextField
 								variant='outlined'
@@ -75,6 +108,7 @@ export default function SignUp(props) {
 								onChange={e => setUserName(e.target.value)}
 							/>
 						</Grid>
+						{props.errors && props.errors.userName && <span>{props.errors.userName}</span>}
 						<Grid item xs={12}>
 							<TextField
 								variant='outlined'
@@ -85,8 +119,14 @@ export default function SignUp(props) {
 								name='email'
 								autoComplete='email'
 								value={email}
+								error={
+									!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+										String(email).toLowerCase(),
+									)
+								}
 								onChange={e => setEmail(e.target.value)}
 							/>
+							{props.errors && props.errors.email && <span>{props.errors.email}</span>}
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
@@ -101,6 +141,7 @@ export default function SignUp(props) {
 								value={password}
 								onChange={e => setPassword(e.target.value)}
 							/>
+							{props.errors && props.errors.password && <span>{props.errors.password}</span>}
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
@@ -115,6 +156,7 @@ export default function SignUp(props) {
 								value={password2}
 								onChange={e => setPassword2(e.target.value)}
 							/>
+							{props.errors && props.errors.password2 && <span>{props.errors.password2}</span>}
 						</Grid>
 						<Grid item xs={12}>
 							<FormControlLabel
@@ -138,3 +180,7 @@ export default function SignUp(props) {
 		</Container>
 	);
 }
+
+const mapStateToProps = state => ({ errors: state.auth.errors });
+
+export default connect(mapStateToProps)(SignUp);

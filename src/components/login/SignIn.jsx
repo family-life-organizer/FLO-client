@@ -42,10 +42,10 @@ function SignIn(props) {
 	const classes = useStyles();
 	const handleSubmit = e => {
 		e.preventDefault();
-		props.handleSubmit({ email, password });
+		props.handleSubmit({ user, password });
 	};
 
-	const [ email, setEmail ] = useState('');
+	const [ user, setUser ] = useState('');
 	const [ password, setPassword ] = useState('');
 	return (
 		<Container component='main' maxWidth='xs'>
@@ -63,13 +63,13 @@ function SignIn(props) {
 						margin='normal'
 						required
 						fullWidth
-						id='email'
-						label='Email Address'
-						name='email'
-						autoComplete='email'
+						id='user'
+						label='Email or Username'
+						name='user'
+						autoComplete='user'
 						autoFocus
-						value={email}
-						onChange={e => setEmail(e.target.value)}
+						value={user}
+						onChange={e => setUser(e.target.value)}
 					/>
 					<TextField
 						variant='outlined'

@@ -1,5 +1,6 @@
 import types from './';
 import api from '../api/customApi';
+import { checkLoginInputs, checkRegisterInputs } from '../utils/validators';
 
 export const doLogin = credentials => async dispatch => {
 	dispatch({ type: types.LOGIN_START });
@@ -15,8 +16,13 @@ export const doLogin = credentials => async dispatch => {
 export const doRegisterAccount = accountInfo => async dispatch => {
 	dispatch({ type: types.REGISTER_START });
 	try {
-		console.log(accountInfo);
-		// const response = await api.post(/*     */, accountInfo);
+		const { isValid, errors } = checkRegisterInputs(accountInfo);
+		if (!isValid) {
+			dispatch({ type: types.REGISTER_FAILURE, payload: errors });
+		} else {
+			console.log(accountInfo);
+			// const response = await api.post(/*     */, accountInfo);
+		}
 	} catch (error) {
 		console.log(error);
 	}
