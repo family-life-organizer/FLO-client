@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	avatar    : {
 		margin          : theme.spacing(1),
-		backgroundColor : theme.palette.secondary.main,
+		backgroundColor : '#27AF55',
 	},
 	form      : {
 		width     : '100%', // Fix IE 11 issue.
@@ -85,7 +85,7 @@ function SignIn(props) {
 						onChange={e => setPassword(e.target.value)}
 					/>
 					<FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
-					<Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
+					<Button type='submit' fullWidth variant='contained' style={{ color: '#FFFFFF', backgroundColor: '#2439A8' }} className={classes.submit}>
 						Sign In
 					</Button>
 					<Grid container>

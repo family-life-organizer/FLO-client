@@ -8,12 +8,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import purple from '@material-ui/core/colors/purple';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const useStyles = makeStyles(theme => ({
 	'@global' : {
@@ -22,18 +21,19 @@ const useStyles = makeStyles(theme => ({
 		},
 	},
 	paper     : {
-		marginTop     : theme.spacing(8),
+		marginTop     : theme.spacing(2),
 		display       : 'flex',
 		flexDirection : 'column',
 		alignItems    : 'center',
 	},
 	avatar    : {
 		margin          : theme.spacing(1),
-		backgroundColor : theme.palette.secondary.main,
+		backgroundColor : '#27AF55',
 	},
 	form      : {
 		width     : '100%', // Fix IE 11 issue.
 		marginTop : theme.spacing(3),
+		marginBottom : theme.spacing(3),
 	},
 	submit    : {
 		margin : theme.spacing(3, 0, 2),
@@ -93,7 +93,7 @@ function SignUp(props) {
 								value={lastName}
 								onChange={e => setLastName(e.target.value)}
 							/>
-							{props.errors && props.errors.first_name && <span>{props.errors.first_name}</span>}
+							{props.errors && props.errors.first_name && <span style={{ backgroundColor: 'red' }}>{props.errors.first_name}</span>}
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
@@ -165,7 +165,7 @@ function SignUp(props) {
 							/>
 						</Grid>
 					</Grid>
-					<Button type='submit' fullWidth variant='contained' color='primary' className={classes.submit}>
+					<Button type='submit' fullWidth variant='contained' style={{ color: '#FFFFFF', backgroundColor: '#2439A8' }} className={classes.submit}>
 						Sign Up
 					</Button>
 					<Grid container justify='flex-end'>
