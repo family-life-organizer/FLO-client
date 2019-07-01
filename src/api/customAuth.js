@@ -4,10 +4,10 @@ export default function() {
 	const token = localStorage.getItem('userToken');
 
 	return axios.create({
-    baseURL: ''
+		baseURL : '',
 		headers : {
-			'Content-Type'  : 'application/json',
-			Authorization : `${token}`,
+			'Content-Type' : 'application/json',
+			Authorization  : `${token}`,
 		},
 	});
 }
