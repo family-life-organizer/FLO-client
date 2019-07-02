@@ -29,7 +29,7 @@ export const doRegisterAccount = accountInfo => async dispatch => {
 			dispatch({ type: types.REGISTER_FAILURE, payload: errors });
 		} else {
 			const response = await api.post('/signup', accountInfo);
-			dispatch({ type: types.REGISTER_SUCCESS, payload: response });
+			dispatch({ type: types.REGISTER_SUCCESS, payload: response.data });
 		}
 	} catch (error) {
 		dispatch({ type: types.REGISTER_FAILURE, payload: error });

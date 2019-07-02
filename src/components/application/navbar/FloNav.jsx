@@ -24,6 +24,14 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import HomeRounded from '@material-ui/icons/HomeRounded';
 import Person from '@material-ui/icons/Person';
 import Settings from '@material-ui/icons/Settings';
+import ScheduleRounded from '@material-ui/icons/ScheduleRounded';
+import styled from 'styled-components';
+
+const IconHideStyle = styled.div`
+	@media screen and (max-width: 500px) {
+		display: none;
+	}
+`;
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -119,6 +127,7 @@ export default function MenuAppBar() {
 		<div className={classes.root}>
 			<AppBar position='fixed' className={clsx(classes.appBar, { [classes.appBarShift]: menuOpen })}>
 				<Toolbar>
+					<IconHideStyle>
 					<IconButton
 						aria-label='Open Side Menu'
 						edge='start'
@@ -127,6 +136,7 @@ export default function MenuAppBar() {
 						onClick={handleMenuOpen}>
 						<MenuIcon />
 					</IconButton>
+					</ IconHideStyle>
 					<Typography variant='h5' style={{ fontFamily: 'Nunito', fontWeight: 'bold' }} className={classes.title}>
 						Family Life Organizer
 					</Typography>
@@ -178,7 +188,13 @@ export default function MenuAppBar() {
 						<ListItemIcon>
 							<HomeRounded />
 						</ListItemIcon>
-						<ListItemText primary='Item Board' />
+						<ListItemText primary='My Lists' />
+					</ListItem>
+					<ListItem button>
+						<ListItemIcon>
+							<ScheduleRounded />
+						</ListItemIcon>
+						<ListItemText primary='Schedule' />
 					</ListItem>
 					<ListItem button>
 						<ListItemIcon>
@@ -190,7 +206,7 @@ export default function MenuAppBar() {
 						<ListItemIcon>
 							<Settings />
 						</ListItemIcon>
-						<ListItemText primary='Settings' />
+						<ListItemText primary='Profile' />
 					</ListItem>
 					<Divider />
 					<ListItem button>
