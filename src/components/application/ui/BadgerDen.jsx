@@ -55,7 +55,7 @@ class BadgerDen extends Component {
 				<h2>Badger's Den</h2>
 				<Icons>
 					<IconCard text={'Schedule'} Icon={CalendarToday} />
-					<IconCard text={'Family'} Icon={Person} />
+					this.props.user.isAdmin ? <IconCard text={'Family'} Icon={Person} />
 					<IconCard text={'My Lists'} Icon={HomeRounded} />
 				</Icons>
 			</ContentContainer>

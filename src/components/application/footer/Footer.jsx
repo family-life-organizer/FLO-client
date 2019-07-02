@@ -14,8 +14,6 @@ const FooterStyle = styled.footer`
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
-        position: absolute;
-        bottom: 0px;
     }
 `;
 

@@ -4,6 +4,7 @@ import FloNav from './navbar/FloNav';
 import BadgerDen from './ui/BadgerDen';
 import Footer from './footer/Footer';
 import styled from 'styled-components';
+import BadgerProfile from './ui/BadgerProfile';
 
 const AppContainer = styled.div`
 	display: flex;
@@ -15,11 +16,13 @@ class FloApp extends Component {
 		return (
 			<AppContainer>
 				<FloNav />
-					<BadgerDen />
+					<BadgerProfile />
 				<Footer />
 			</AppContainer>
 		);
 	}
 }
 
-export default FloApp;
+const mapStateToProps = state => ({ user: state.users.user })
+
+export default connect(mapStateToProps, {})(FloApp);
