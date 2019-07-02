@@ -1,15 +1,23 @@
 import types from './';
 import api from '../api/customApi';
-import { checkLoginInputs, checkRegisterInputs } from '../utils/validators';
+import { checkRegisterInputs } from '../utils/validators';
 
 export const doLogin = credentials => async dispatch => {
 	dispatch({ type: types.LOGIN_START });
 	try {
-		// const response = await api.post(/*     */, credentials);
-		// console.log(response);
-		console.log(credentials);
+		const { user, password } = credentials;
+		const userLogin = {};
+
+		if (/(@)/.test(user)) {
+			userLogin.email = user;
+		} else {
+			userLogin.username = user;
+		}
+		userLogin.password = password;
+		const response = await api.post('/login', userLogin);
+		dispatch({ type: types.LOGIN_SUCCESS, payload: response });
 	} catch (error) {
-		console.log(error);
+		dispatch({ type: types.LOGIN_FAILURE, payload: error });
 	}
 };
 
@@ -20,11 +28,11 @@ export const doRegisterAccount = accountInfo => async dispatch => {
 		if (!isValid) {
 			dispatch({ type: types.REGISTER_FAILURE, payload: errors });
 		} else {
-			console.log(accountInfo);
-			// const response = await api.post(/*     */, accountInfo);
+			const response = await api.post('/signup', accountInfo);
+			dispatch({ type: types.REGISTER_SUCCESS, payload: response });
 		}
 	} catch (error) {
-		console.log(error);
+		dispatch({ type: types.REGISTER_FAILURE, payload: error });
 	}
 };
 

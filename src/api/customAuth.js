@@ -4,7 +4,7 @@ export default function() {
 	const token = localStorage.getItem('login_token');
 
 	return axios.create({
-		baseURL : '',
+		baseURL : 'https://family-life-organizer.herokuapp.com/api',
 		headers : {
 			'Content-Type' : 'application/json',
 			Authorization  : `${token}`,

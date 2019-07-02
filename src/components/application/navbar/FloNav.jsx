@@ -21,6 +21,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
+import HomeRounded from '@material-ui/icons/HomeRounded';
+import Person from '@material-ui/icons/Person';
+import Settings from '@material-ui/icons/Settings';
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -29,7 +32,8 @@ const useStyles = makeStyles(theme => ({
 		flexGrow : 1,
 	},
 	appBar       : {
-		transition : theme.transitions.create([ 'margin', 'width' ], {
+		backgroundColor : '#5C70DC',
+		transition      : theme.transitions.create([ 'margin', 'width' ], {
 			easing   : theme.transitions.easing.sharp,
 			duration : theme.transitions.duration.leavingScreen,
 		}),
@@ -113,10 +117,7 @@ export default function MenuAppBar() {
 
 	return (
 		<div className={classes.root}>
-			<AppBar
-				style={{ backgroundColor: '#5C70DC' }}
-				position='fixed'
-				className={clsx(classes.appBar, { [classes.appBarShift]: menuOpen })}>
+			<AppBar position='fixed' className={clsx(classes.appBar, { [classes.appBarShift]: menuOpen })}>
 				<Toolbar>
 					<IconButton
 						aria-label='Open Side Menu'
@@ -173,6 +174,25 @@ export default function MenuAppBar() {
 				</div>
 				<Divider />
 				<List>
+					<ListItem button>
+						<ListItemIcon>
+							<HomeRounded />
+						</ListItemIcon>
+						<ListItemText primary='Item Board' />
+					</ListItem>
+					<ListItem button>
+						<ListItemIcon>
+							<Person />
+						</ListItemIcon>
+						<ListItemText primary='Family Members' />
+					</ListItem>
+					<ListItem button>
+						<ListItemIcon>
+							<Settings />
+						</ListItemIcon>
+						<ListItemText primary='Settings' />
+					</ListItem>
+					<Divider />
 					<ListItem button>
 						<ListItemIcon>
 							<InboxIcon />
