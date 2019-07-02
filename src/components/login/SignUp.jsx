@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import styled from 'styled-components';
+import Spinner from  '../../utils/Spinner'
 
 const ImgStyle = styled.div`
 	img {
@@ -73,6 +74,7 @@ function SignUp(props) {
 				<Typography component='h1' variant='h5'>
 					Sign up
 				</Typography>
+				{ props.isLoading && <Spinner />}
 				<form className={classes.form} onSubmit={handleSubmit}>
 					<Grid container spacing={2}>
 						<Grid item xs={12} sm={6}>
@@ -195,6 +197,6 @@ function SignUp(props) {
 	);
 }
 
-const mapStateToProps = state => ({ errors: state.auth.errors });
+const mapStateToProps = state => ({ errors: state.auth.errors, isLoading: state.auth.isLoading });
 
 export default connect(mapStateToProps)(SignUp);
