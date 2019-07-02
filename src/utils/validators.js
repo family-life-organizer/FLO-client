@@ -25,15 +25,15 @@ export const checkLoginInputs = values => {
 
 export const checkRegisterInputs = values => {
 	let errors = {};
-	const { firstName, lastName, email, userName, password, password2 } = values;
+	const { firstName, lastName, email, username, password, password2 } = values;
 	if (isEmpty(firstName)) {
 		errors.firstName = '*Required';
 	}
 	if (isEmpty(lastName)) {
 		errors.lastName = '*Required';
 	}
-	if (isEmpty(userName)) {
-		errors.userName = '*Required';
+	if (isEmpty(username)) {
+		errors.username = '*Required';
 	}
 	if (
 		!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(

@@ -40,8 +40,10 @@ export const doLogout = () => ({ type: types.LOGOUT });
 
 export const doWelcomeBack = () => {
 	const token = localStorage.getItem('login_token');
+	const user = localStorage.getItem('user_token');
+	const family = localStorage.getItem('family_token');
 	return {
 		type    : types.WELCOMEBACK,
-		payload : token,
+		payload : { token, user, family },
 	};
 };

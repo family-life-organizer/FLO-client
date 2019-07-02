@@ -39,8 +39,8 @@ const useStyles = makeStyles(theme => ({
 		backgroundColor : '#27AF55',
 	},
 	form      : {
-		width     : '100%', // Fix IE 11 issue.
-		marginTop : theme.spacing(3),
+		width        : '100%', // Fix IE 11 issue.
+		marginTop    : theme.spacing(3),
 		marginBottom : theme.spacing(3),
 	},
 	submit    : {
@@ -53,14 +53,14 @@ function SignUp(props) {
 	const [ email, setEmail ] = useState('');
 	const [ password, setPassword ] = useState('');
 	const [ password2, setPassword2 ] = useState('');
-	const [ userName, setUserName ] = useState('');
+	const [ username, setUsername ] = useState('');
 	const [ firstName, setFirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');
 
 	const handleSubmit = e => {
 		e.preventDefault();
 		if (password === password2) {
-			props.handleSubmit({ firstName, lastName, email, password, userName, password2 });
+			props.handleSubmit({ firstName, lastName, email, password, username, password2 });
 		}
 	};
 	return (
@@ -101,7 +101,8 @@ function SignUp(props) {
 								value={lastName}
 								onChange={e => setLastName(e.target.value)}
 							/>
-							{props.errors && props.errors.first_name && <span style={{ backgroundColor: 'red' }}>{props.errors.first_name}</span>}
+							{props.errors &&
+							props.errors.first_name && <span style={{ backgroundColor: 'red' }}>{props.errors.first_name}</span>}
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
@@ -112,11 +113,11 @@ function SignUp(props) {
 								label='Username'
 								name='username'
 								autoComplete='Username'
-								value={userName}
-								onChange={e => setUserName(e.target.value)}
+								value={username}
+								onChange={e => setUsername(e.target.value)}
 							/>
 						</Grid>
-						{props.errors && props.errors.userName && <span>{props.errors.userName}</span>}
+						{props.errors && props.errors.userName && <span>{props.errors.username}</span>}
 						<Grid item xs={12}>
 							<TextField
 								variant='outlined'
@@ -173,7 +174,12 @@ function SignUp(props) {
 							/>
 						</Grid>
 					</Grid>
-					<Button type='submit' fullWidth variant='contained' style={{ color: '#FFFFFF', backgroundColor: '#2439A8' }} className={classes.submit}>
+					<Button
+						type='submit'
+						fullWidth
+						variant='contained'
+						style={{ color: '#FFFFFF', backgroundColor: '#2439A8' }}
+						className={classes.submit}>
 						Sign Up
 					</Button>
 					<Grid container justify='flex-end'>
