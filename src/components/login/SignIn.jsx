@@ -13,6 +13,14 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import styled from 'styled-components';
+
+const ImgStyle = styled.div`
+	img {
+		width: 86px;
+		height: 72px;
+	}
+`;
 
 const useStyles = makeStyles(theme => ({
 	'@global' : {
@@ -52,9 +60,9 @@ function SignIn(props) {
 		<Container component='main' maxWidth='xs'>
 			<CssBaseline />
 			<div className={classes.paper}>
-				<Avatar className={classes.avatar}>
-					<LockOutlinedIcon />
-				</Avatar>
+				<ImgStyle>
+					<img src={process.env.PUBLIC_URL + '/Badger.jpg'} />
+				</ImgStyle>
 				<Typography component='h1' variant='h5'>
 					Sign in
 				</Typography>
