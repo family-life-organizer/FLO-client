@@ -15,7 +15,7 @@ export const doLogin = credentials => async dispatch => {
 		}
 		userLogin.password = password;
 		const response = await api.post('/login', userLogin);
-		dispatch({ type: types.LOGIN_SUCCESS, payload: response });
+		dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
 	} catch (error) {
 		dispatch({ type: types.LOGIN_FAILURE, payload: error });
 	}

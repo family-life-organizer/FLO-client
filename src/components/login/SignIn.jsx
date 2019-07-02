@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -40,7 +41,7 @@ const useStyles = makeStyles(theme => ({
 
 function SignIn(props) {
 	const classes = useStyles();
-	const handleSubmit = e => {
+	const handleSubmit = async e => {
 		e.preventDefault();
 		props.handleSubmit({ user, password });
 	};
@@ -85,7 +86,12 @@ function SignIn(props) {
 						onChange={e => setPassword(e.target.value)}
 					/>
 					<FormControlLabel control={<Checkbox value='remember' color='primary' />} label='Remember me' />
-					<Button type='submit' fullWidth variant='contained' style={{ color: '#FFFFFF', backgroundColor: '#2439A8' }} className={classes.submit}>
+					<Button
+						type='submit'
+						fullWidth
+						variant='contained'
+						style={{ color: '#FFFFFF', backgroundColor: '#2439A8' }}
+						className={classes.submit}>
 						Sign In
 					</Button>
 					<Grid container>
@@ -106,4 +112,5 @@ function SignIn(props) {
 	);
 }
 
-export default SignIn;
+const mapStateToProps = state => ({ isAuth: state.auth.isAuth });
+export default connect(mapStateToProps)(SignIn);

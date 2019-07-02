@@ -17,7 +17,7 @@ class App extends Component {
 				<CssBaseLine />
 				<GlobalStyle />
 				<Switch>
-					<Route path='/app' component={FloApp} />
+					<PrivateRoute path='/app' component={FloApp} />
 					<Route path='/' component={Onboard} />
 				</Switch>
 			</Fragment>
