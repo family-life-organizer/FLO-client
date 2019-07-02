@@ -8366,6 +8366,11 @@ react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.0, react-is@^16.8.1, react-is
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
+react-material-ui-calendar@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/react-material-ui-calendar/-/react-material-ui-calendar-0.2.3.tgz#a958b25c88e1f22f4fc4dfe161e801c8d6165835"
+  integrity sha512-GSbVS3Vx+rgcsC2UZmQPw3FjFwU7w3rrls2drJMuqjQ0vxG8nXZ/I5CPUnrcighz1NcOoVA8r94kHffz05jjRg==
+
 react-redux@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-7.1.0.tgz#72af7cf490a74acdc516ea9c1dd80e25af9ea0b2"
