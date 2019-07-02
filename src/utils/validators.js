@@ -54,3 +54,26 @@ export const checkRegisterInputs = values => {
 		isValid : isEmpty(errors),
 	};
 };
+
+export const checkAddMemberInputs = values => {
+	let errors = {};
+
+	const { username, password, password2 } = values;
+
+	if (isEmpty(username)) {
+		errors.username = '*Required';
+	}
+
+	if (isEmpty(password)) {
+		errors.password = '*Required';
+	}
+
+	if (password !== password2) {
+		errors.password2 = '*Passwords must match';
+	}
+
+	return {
+		errors,
+		isValid : isEmpty(errors),
+	};
+};

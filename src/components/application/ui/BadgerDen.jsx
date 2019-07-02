@@ -4,6 +4,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import IconCard from '../card/IconCard';
 import Person from '@material-ui/icons/Person';
 import HomeRounded from '@material-ui/icons/HomeRounded';
+import { connect } from 'react-redux';
 
 const ImgStyle = styled.div`
 	img {
@@ -54,13 +55,15 @@ class BadgerDen extends Component {
 				</ImgStyle>
 				<h2>Badger's Den</h2>
 				<Icons>
-					<IconCard text={'Schedule'} Icon={CalendarToday} />
-					this.props.user.isAdmin ? <IconCard text={'Family'} Icon={Person} />
-					<IconCard text={'My Lists'} Icon={HomeRounded} />
+					<IconCard text={'Calendar'} Icon={CalendarToday} />
+					{this.props.user.isAdmin ? <IconCard text={'Family'} Icon={Person} /> : null}
+					<IconCard text={'Tasks'} Icon={HomeRounded} />
 				</Icons>
 			</ContentContainer>
 		);
 	}
 }
 
-export default BadgerDen;
+const mapStateToProps = state => ({ user: state.users.user });
+
+export default connect(mapStateToProps, {})(BadgerDen);

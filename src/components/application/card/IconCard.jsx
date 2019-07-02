@@ -1,6 +1,7 @@
 import React from 'react';
 import Favorite from '@material-ui/icons/Favorite';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const CardContainer = styled.div`
 	background-color: lightgrey;
@@ -40,10 +41,12 @@ const IconCard = props => {
 	return (
 		<CardContainer>
 			<Icon style={{ height: '64px', width: '64px', color: '#666666', margin: '10px 0 5px 0' }} />
-			<TextBar>
-				{text}
-				<Favorite style={{ height: '16px', width: '16px', color: 'white', paddingBottom: '2px' }} />
-			</TextBar>
+			<Link to={`/${text}`} style={{ width: '100%' }}>
+				<TextBar>
+					{text}
+					<Favorite style={{ height: '16px', width: '16px', color: 'white', paddingBottom: '2px' }} />
+				</TextBar>
+			</Link>
 		</CardContainer>
 	);
 };

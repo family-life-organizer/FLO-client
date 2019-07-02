@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { doGetFamilyMembers } from '../../../actions/userActions';
+import { doLogout } from '../../../actions/authActions';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -27,11 +31,7 @@ import Settings from '@material-ui/icons/Settings';
 import ScheduleRounded from '@material-ui/icons/ScheduleRounded';
 import styled from 'styled-components';
 
-const IconHideStyle = styled.div`
-	@media screen and (max-width: 500px) {
-		display: none;
-	}
-`;
+const IconHideStyle = styled.div`@media screen and (max-width: 500px) {display: none;}`;
 
 const drawerWidth = 240;
 const useStyles = makeStyles(theme => ({
@@ -95,7 +95,7 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-export default function MenuAppBar() {
+function MenuAppBar(props) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [ auth, setAuth ] = React.useState(true);
@@ -128,17 +128,17 @@ export default function MenuAppBar() {
 			<AppBar position='fixed' className={clsx(classes.appBar, { [classes.appBarShift]: menuOpen })}>
 				<Toolbar>
 					<IconHideStyle>
-					<IconButton
-						aria-label='Open Side Menu'
-						edge='start'
-						className={clsx(classes.menuButton, open && classes.hide)}
-						color='inherit'
-						onClick={handleMenuOpen}>
-						<MenuIcon />
-					</IconButton>
-					</ IconHideStyle>
+						<IconButton
+							aria-label='Open Side Menu'
+							edge='start'
+							className={clsx(classes.menuButton, open && classes.hide)}
+							color='inherit'
+							onClick={handleMenuOpen}>
+							<MenuIcon />
+						</IconButton>
+					</IconHideStyle>
 					<Typography variant='h5' style={{ fontFamily: 'Nunito', fontWeight: 'bold' }} className={classes.title}>
-						Family Life Organizer
+						Badger's Den
 					</Typography>
 					{auth && (
 						<div>
@@ -188,35 +188,41 @@ export default function MenuAppBar() {
 						<ListItemIcon>
 							<HomeRounded />
 						</ListItemIcon>
-						<ListItemText primary='My Lists' />
+						<ListItemText primary='My Tasks' />
 					</ListItem>
 					<ListItem button>
 						<ListItemIcon>
 							<ScheduleRounded />
 						</ListItemIcon>
-						<ListItemText primary='Schedule' />
+						<Link to='/calendar'>
+							<ListItemText primary='Schedule' />
+						</Link>
 					</ListItem>
 					<ListItem button>
 						<ListItemIcon>
 							<Person />
 						</ListItemIcon>
-						<ListItemText primary='Family Members' />
+						<ListItemText primary='Family Members' onClick={props.doGetFamilyMembers} />
 					</ListItem>
 					<ListItem button>
 						<ListItemIcon>
 							<Settings />
 						</ListItemIcon>
-						<ListItemText primary='Profile' />
+						<Link to='/profile'>
+							<ListItemText primary='Profile' />
+						</Link>
 					</ListItem>
 					<Divider />
 					<ListItem button>
 						<ListItemIcon>
 							<InboxIcon />
 						</ListItemIcon>
-						<ListItemText primary='Logout' />
+						<ListItemText primary='Logout' onClick={props.doLogout} />
 					</ListItem>
 				</List>
 			</Drawer>
 		</div>
 	);
 }
+
+export default connect(null, { doGetFamilyMembers, doLogout })(MenuAppBar);

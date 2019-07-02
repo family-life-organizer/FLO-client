@@ -30,6 +30,18 @@ export default (state = initialState, action) => {
 		case types.WELCOMEBACK:
 			let returnUser = jwt_decode(payload.token);
 			return { ...state, isAuth: true, isLoading: false, user: returnUser, errors: null };
+		case types.GET_FAMILY_MEMBERS_START:
+			return { ...state, isLoading: true };
+		case types.GET_FAMILY_MEMBERS_SUCCESS:
+			return { ...state, isLoading: false };
+		case types.GET_FAMILY_MEMBERS_FAILURE:
+			return { ...state, isLoading: false };
+		case types.ADD__FAMILY_MEMBER_START:
+			return { ...state, isLoading: true };
+		case types.ADD_FAMILY_MEMBER_SUCCESS:
+			return { ...state, isLoading: false };
+		case types.ADD_FAMILY_MEMBER_FAILURE:
+			return { ...state, isLoading: false };
 		default:
 			return state;
 	}

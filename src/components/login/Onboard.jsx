@@ -1,14 +1,21 @@
 import React, { Fragment, useState } from 'react';
 import { doLogin, doRegisterAccount } from '../../actions/authActions';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
-const Onboard = ({ doLogin, isAuth, doRegisterAccount, history }) => {
+const Onboard = props => {
+	console.log(props);
 	const [ isLogin, setisLogin ] = useState(true);
 	const handleSubmit = async values => {
-		isLogin ? await doLogin(values) : await doRegisterAccount(values);
-		isAuth && history.push('/app');
+		if (isLogin) {
+			await props.doLogin(values);
+			if (props.isAuth) props.history.push('/app');
+		} else {
+			await props.doRegisterAccount(values);
+			if (props.isAuth) props.history.push('/app');
+		}
 	};
 	const handleToggle = () => {
 		setisLogin(!isLogin);
@@ -26,4 +33,4 @@ const Onboard = ({ doLogin, isAuth, doRegisterAccount, history }) => {
 
 const mapStateToProps = state => ({ isAuth: state.auth.isAuth });
 
-export default connect(mapStateToProps, { doLogin, doRegisterAccount })(Onboard);
+export default withRouter(connect(mapStateToProps, { doLogin, doRegisterAccount })(Onboard));

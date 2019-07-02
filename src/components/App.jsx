@@ -8,6 +8,8 @@ import Onboard from './login/Onboard';
 import { GlobalStyle } from '../styles/GlobalStyle';
 import CssBaseLine from '@material-ui/core/CssBaseline';
 import jwt_decode from 'jwt-decode';
+import BadgerCalendar from './application/ui/BadgerCalendar';
+import BadgerProfile from './application/ui/BadgerProfile';
 
 class App extends Component {
 	async componentDidMount() {
@@ -27,6 +29,8 @@ class App extends Component {
 				<CssBaseLine />
 				<GlobalStyle />
 				<Switch>
+					<PrivateRoute path='/calendar' component={BadgerCalendar} />
+					<PrivateRoute path='/profile' component={BadgerProfile} />
 					<PrivateRoute path='/app' component={FloApp} />
 					<Route exact path='/' component={Onboard} />
 				</Switch>

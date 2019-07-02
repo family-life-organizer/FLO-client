@@ -9,6 +9,8 @@ import BadgerProfile from './ui/BadgerProfile';
 const AppContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
+	justify-content: center;
+	margin: 0 auto;
 `;
 
 class FloApp extends Component {
@@ -16,13 +18,13 @@ class FloApp extends Component {
 		return (
 			<AppContainer>
 				<FloNav />
-					<BadgerProfile />
+				<BadgerDen />
 				<Footer />
 			</AppContainer>
 		);
 	}
 }
 
-const mapStateToProps = state => ({ user: state.users.user })
+const mapStateToProps = state => ({ user: state.users.user });
 
 export default connect(mapStateToProps, {})(FloApp);

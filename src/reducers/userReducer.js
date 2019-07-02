@@ -1,7 +1,12 @@
 import types from '../actions';
 import jwt_decode from 'jwt-decode';
 
-export default (state = {}, action) => {
+const initialState = {
+	user   : {},
+	errors : null,
+};
+
+export default (state = initialState, action) => {
 	const { type, payload } = action;
 	switch (type) {
 		case types.LOGIN_SUCCESS:
@@ -15,6 +20,7 @@ export default (state = {}, action) => {
 		case types.WELCOMEBACK:
 			const returningUser = jwt_decode(localStorage.getItem('user_token'));
 			return { user: returningUser };
+
 		default:
 			return state;
 	}
