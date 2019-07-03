@@ -39,7 +39,8 @@ const ContentContainer = styled.div`
 	margin-top: 100px;
 	margin-bottom: 100px;
     height: 100%;
-    clear: both;
+	clear: both;
+	background-color: #FFFFFF;
 	width: 100%;
     @media screen and (max-width: 500px) {
         padding-left: 0px;

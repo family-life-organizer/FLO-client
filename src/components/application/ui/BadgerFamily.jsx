@@ -39,37 +39,38 @@ const Icons = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  margin-top: 100px;
-  margin-bottom: 100px;
-  height: 100%;
-  width: 100%;
-  h2 {
-    width: 100%;
-    text-align: center;
-  }
-  form {
-    width: 70%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    text-align: center;
-    button {
-      width: 50%;
-      margin: 50px 0 50px 0;
-      @media screen and (max-width: 500px) {
-        width: 80%;
-      }
-    }
-    p {
-      width: 100%;
-      text-align: center;
-    }
-  }
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+	margin-top: 100px;
+	margin-bottom: 100px;
+	height: 100%;
+	background-color: #FFFFFF;
+	width: 100%;
+	h2 {
+		width: 100%;
+		text-align: center;
+	}
+	form {
+		width: 70%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		text-align: center;
+		button {
+			width: 50%;
+			margin: 50px 0 50px 0;
+			@media screen and (max-width: 500px) {
+				width: 80%;
+			}
+		}
+		p {
+			width: 100%;
+			text-align: center;
+		}
+	}
 `;
 
 const useStyles = makeStyles(theme => ({

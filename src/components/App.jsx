@@ -12,7 +12,7 @@ import BadgerCalendar from './application/ui/BadgerCalendar';
 import BadgerProfile from './application/ui/BadgerProfile';
 import BadgerFamily from './application/ui/BadgerFamily';
 import BadgerTask from './application/ui/BadgerTask/BadgerTask';
-
+import ManageTasksPanel from './application/ui/BadgerTask/ManageTaskPanel'
 class App extends Component {
 	async componentDidMount() {
 		if (localStorage.getItem('login_token')) {
@@ -53,6 +53,7 @@ class App extends Component {
 					<PrivateRoute path='/tasks' component={BadgerTask} />
 					<PrivateRoute path='/family' component={BadgerFamily} />
 					<PrivateRoute path='/app' component={FloApp} />
+					<PrivateRoute path='/manage/tasks' component={ManageTasksPanel} />
 					<Route exact path='/' render={() => <Onboard handleSubmit={this.onHandleSubmit} />} />
 				</Switch>
 			</Fragment>
