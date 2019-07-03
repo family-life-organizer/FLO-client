@@ -6,7 +6,7 @@ import MemberPanel from './MemberPanel';
 function BadgerTask(props) {
     return (
         <div>
-        {props.user.isAdmin ? <ParentPanel /> : <MemberPanel />}
+        {  <MemberPanel />}
         </div>
     );
 }
