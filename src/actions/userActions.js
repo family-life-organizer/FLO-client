@@ -63,6 +63,7 @@ export const doAddFamilyMember = addMemberDetails => async dispatch => {
       type: types.ADD_FAMILY_MEMBER_FAILURE,
       payload: error.response.data
     });
+    return error
   }
 };
 
@@ -71,9 +72,11 @@ export const doCreateTask = newTask => async dispatch => {
   try {
     const response = await customAuth().post("/tasks", newTask);
     const res = await customAuth().get(`/users/${newTask.assigneeId}`);
-    dispatch({ type: types.CREATE_TASK_SUCCESS, payload: res.data.data });
+	dispatch({ type: types.CREATE_TASK_SUCCESS, payload: res.data.data });
+	dispatch({ type: types.RESET });
   } catch (error) {
     dispatch({ type: types.CREATE_TASK_FAILURE, payload: error.response.data });
+    dispatch({ type: types.RESET });
   }
 };
 
@@ -85,9 +88,11 @@ export const doCreateCategory = name => async dispatch => {
     dispatch({
       type: types.CREATE_CATEGORY_SUCCESS,
       payload: res.data.categories
-    });
+	});
+	dispatch({ type: types.RESET });
   } catch (error) {
-    dispatch({ type: types.CREATE_CATEGORY_FAILURE });
+    dispatch({ type: types.CREATE_CATEGORY_FAILURE, payload: error });
+    dispatch({ type: types.RESET });
   }
 };
 
@@ -95,9 +100,9 @@ export const doCompleteTask = taskId => async dispatch => {
   dispatch({ type: types.COMPLETE_TASK_START });
   try {
     const response = await customAuth().patch(`/tasks/${taskId}`);
-    console.log(response);
+    return response
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
@@ -119,8 +124,7 @@ Payload: {
     dispatch({ type: types.UPDATE_TASK_SUCCESS });
     dispatch({ type: types.RESET });
   } catch (error) {
-	dispatch({ type: types.UPDATE_TASK_FAILURE, payload: error });
-	dispatch({ type: types.RESET });
-
+    dispatch({ type: types.UPDATE_TASK_FAILURE, payload: error });
+    dispatch({ type: types.RESET });
   }
 };

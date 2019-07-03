@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import Avatar from '@material-ui/core/Avatar';
+
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
+
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Link from '@material-ui/core/Link';
+
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+
 import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { doUpdateAccount, doAddFamilyMember } from '../../../actions/userActions';
+import { doUpdateAccount} from '../../../actions/userActions';
 import FloNav from '../navbar/FloNav';
 import Spinner from '../../../utils/Spinner';
 import Footer from '../footer/Footer';
@@ -66,7 +64,7 @@ const ContentContainer = styled.div`
 		}
 	}
     h2 {
-        margin 5px 0 40px 0;
+        margin: 5px 0 40px 0;
         font-family: 'Nunito', sans-serif;
         font-weight: bolder;
         font-size: 2.2rem;
@@ -111,9 +109,6 @@ function BadgerProfile(props) {
 	const [ firstName, setfirstName ] = useState('');
 	const [ lastName, setLastName ] = useState('');
 	const [ email, setEmail ] = useState('');
-	const [ badgerUser, setBadgerUser ] = useState('');
-	const [ badgerPassword, setBadgerPassword ] = useState('');
-	const [ badgerPassword2, setBadgerPassword2 ] = useState('');
 
 	const classes = useStyles();
 
@@ -134,14 +129,8 @@ function BadgerProfile(props) {
 		if (password === password2) {
 			props.doUpdateAccount({ firstName, lastName, email, password, username })
 			.then(() => toast.success("Account update successfully."))
-		}
-	};
-
-	const handleBadgerSubmit = e => {
-		e.preventDefault();
-		props.doAddFamilyMember({ username: badgerUser, password: badgerPassword, password2: badgerPassword2 });
-		if (props.addBadger) {
-			toast.success("Badger added successfully.")
+		} else {
+			toast.error('Password must match')
 		}
 	};
 
@@ -149,7 +138,7 @@ function BadgerProfile(props) {
 		<ContentContainer>
 			<FloNav />
 			<ImgStyle>
-				<img src={process.env.PUBLIC_URL + '/Badger.jpg'} />
+				<img src={process.env.PUBLIC_URL + '/Badger.jpg'} alt="user avatar" />
 			</ImgStyle>
 			<h2>Update Profile</h2>
 			<div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
@@ -249,61 +238,6 @@ function BadgerProfile(props) {
 					Update Profile
 				</Button>
 			</form>
-			<h2> Add New Badger </h2>
-			<div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
-				{props.isLoading && <Spinner /> }
-			</div>
-			<form className={classes.form} onSubmit={handleBadgerSubmit}>
-				<Grid container spacing={2}>
-					<Grid item xs={12}>
-						<TextField
-							name='badgerUsername'
-							variant='outlined'
-							fullWidth
-							id='badgerUsername'
-							label='Username'
-							autoFocus
-							autoComplete='Username'
-							value={badgerUser}
-							onChange={e => setBadgerUser(e.target.value)}
-						/>
-					</Grid>
-					<Grid item xs={12} sm={6}>
-						<TextField
-							variant='outlined'
-							fullWidth
-							id='badgerPassword'
-							label='Badger Password'
-							name='badgerpassword'
-							type='password'
-							autoComplete='Password'
-							value={badgerPassword}
-							onChange={e => setBadgerPassword(e.target.value)}
-						/>
-					</Grid>
-					<Grid item xs={12} sm={6}>
-						<TextField
-							variant='outlined'
-							fullWidth
-							id='badgerPassword2'
-							label='Confirm Badger Password'
-							name='badgerPassword2'
-							type='password'
-							autoComplete='Password2'
-							value={badgerPassword2}
-							onChange={e => setBadgerPassword2(e.target.value)}
-						/>
-					</Grid>
-				</Grid>
-				<Button
-					type='submit'
-					fullWidth
-					variant='contained'
-					style={{ color: '#FFFFFF', backgroundColor: '#2439A8' }}
-					className={classes.submit}>
-					Add New Badger
-				</Button>
-			</form>
 			<Footer />
 		</ContentContainer>
 	);
@@ -311,4 +245,4 @@ function BadgerProfile(props) {
 
 const mapStateToProps = state => ({ user: state.users.user, isLoading: state.auth.isLoading, updateAccount: state.auth.updateAccount, addBadger: state.auth.addBadger });
 
-export default connect(mapStateToProps, { doUpdateAccount, doAddFamilyMember })(BadgerProfile);
+export default connect(mapStateToProps, { doUpdateAccount})(BadgerProfile);
