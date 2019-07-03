@@ -38,9 +38,9 @@ export const doUpdateAccount = accountInfo => async dispatch => {
   dispatch({ type: types.UPDATE_ACCOUNT_START });
   try {
     const response = await customAuth().patch("/profile", accountInfo);
-    console.log(response);
+    dispatch({type: types.UPDATE_ACCOUNT_SUCCESS})
   } catch (error) {
-    console.log(error);
+    dispatch({type: types.UPDATE_ACCOUNT_FAILURE, payload: error.response.data})
   }
 };
 
@@ -57,6 +57,7 @@ export const doAddFamilyMember = addMemberDetails => async dispatch => {
       password
     });
     dispatch({ type: types.ADD_FAMILY_MEMBER_SUCCESS, payload: response.data });
+    return response;
   } catch (error) {
     dispatch({
       type: types.ADD_FAMILY_MEMBER_FAILURE,
