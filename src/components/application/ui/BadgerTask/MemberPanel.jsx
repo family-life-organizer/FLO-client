@@ -15,6 +15,7 @@ const ContentContainer = styled.div`
 	margin-bottom: 100px;
 	height: 100%;
 	width: 100%;
+	background-color: #FFFFFF;
 	h2 {
 		width: 100%;
 		text-align: center;
@@ -26,7 +27,8 @@ class MemberPanel extends Component {
     return (
         <ContentContainer>
             <FloNav />
-                {this.props.tasks.map(task => <TaskComponent task={task} />)}
+			<TaskComponent task={{ description: "A new task"}} />
+			{this.props.tasks.map(task => <TaskComponent task={task} />)}
             <Footer />
         </ContentContainer>
     );
