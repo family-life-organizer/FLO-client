@@ -6,6 +6,8 @@ const initialState = {
 	isLoading : false,
 	token     : {},
 	errors    : null,
+	isCategoryCreated: false,
+	isTaskCreated: false
 };
 
 export default (state = initialState, action) => {
@@ -54,17 +56,17 @@ export default (state = initialState, action) => {
 		case types.CREATE_CATEGORY_START:
 			return { ...state, isLoading: true };
 		case types.CREATE_CATEGORY_SUCCESS:
-			return { ...state, isLoading: false };
+			return { ...state, isLoading: false, isCategoryCreated: true };
 		case types.CREATE_CATEGORY_FAILURE:
-			return { ...state, isLoading: false };
+			return { ...state, isLoading: false, errors: action.payload };
 		case types.CREATE_TASK_START:
 			return { ...state, isLoading: true };
 		case types.CREATE_TASK_SUCCESS:
-			return { ...state, isLoading: false };
+			return { ...state, isLoading: false, isTaskCreated: true };
 		case types.CREATE_TASK_FAILURE:
 			return { ...state, isLoading: false };
 			case types.RESET:
-			return { ...state, isLoading: false, errors: null };
+			return { ...state, isLoading: false, errors: null, isCategoryCreated: false, isTaskCreated: false };
 		default:
 			return state;
 	}
