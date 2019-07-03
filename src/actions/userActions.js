@@ -80,6 +80,8 @@ export const doCompleteTask = taskId => async dispatch => {
 };
 
 export const doUpdateTask = (id, updatedTask) => async dispatch => {
+	console.log(id)
+	console.log(updatedTask)
 	/*
 Payload: {
     description: TEXT,
@@ -89,7 +91,7 @@ Payload: {
 }	*/
 	dispatch({ type: types.UPDATE_TASK_START });
 	try {
-		const response = await customAuth().patch(`/tasks/${id}`, {assigneeId: updatedTask});
+		const response = await customAuth().patch(`/updateTasks/${id}`, {assigneeId: updatedTask});
 		console.log(response);
 	} catch (error) {
 		console.log(error);
