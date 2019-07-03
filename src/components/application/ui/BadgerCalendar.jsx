@@ -7,6 +7,9 @@ import Footer from '../footer/Footer';
 
 class BadgerCalendar extends Component {
 	dateSelection = value => {
+		//This is where we want to do some sort of redirect to a list of tasks for that particular date
+		//the value that's being passed in to this function is the date -> you can check the console for this
+		//ultimately, whatever tasks are associated with the user will be passed down to the task viewer component
 		console.log('The return value here is', value);
 		console.log(this.props.user);
 	};
