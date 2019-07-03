@@ -1,6 +1,4 @@
-import types from "../actions";
-import jwt_decode from "jwt-decode";
-
+import types from '../actions';
 const initialState = {
   user: {},
   family: [],
