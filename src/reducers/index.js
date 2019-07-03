@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import auth from './authReducer';
 import users from './userReducer';
-import family from './familyReducer';
+import tasks from './taskReducer';
 
-export default combineReducers({ auth, users, family });
+export default combineReducers({ auth, users, tasks });
