@@ -63,6 +63,8 @@ export default (state = initialState, action) => {
 			return { ...state, isLoading: false };
 		case types.CREATE_TASK_FAILURE:
 			return { ...state, isLoading: false };
+			case types.RESET:
+			return { ...state, isLoading: false, errors: null };
 		default:
 			return state;
 	}
