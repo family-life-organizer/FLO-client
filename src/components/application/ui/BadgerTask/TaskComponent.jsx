@@ -12,7 +12,7 @@ const TaskCard = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin: 1rem;
 `;
 
 const useStyles = makeStyles({
@@ -124,7 +124,7 @@ function TaskComponent(props) {
                   style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
                   className={classes.submit}
                   size="small"
-                  onClick={() => props.approveTask("approved")}
+                  onClick={() => props.approveTask(props.task.id,"approved")}
                 >
                   Approve
                 </Button>
@@ -138,7 +138,7 @@ function TaskComponent(props) {
                   style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
                   className={classes.submit}
                   size="small"
-                  onClick={() => props.approveTask("declined")}
+                  onClick={() => props.approveTask(props.task.id,"declined")}
                 >
                   Reject
                 </Button>

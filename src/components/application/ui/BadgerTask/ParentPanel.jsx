@@ -41,18 +41,29 @@ class ParentPanel extends Component {
   };
 
   componentDidMount() {
+    this.fetchTasks()
+  }
+  createTask = () => {
+    this.props.history.push("/manage/tasks");
+  };
+
+  approveTask = (taskId, status) => {
+    customAuth().patch(`/tasks/${taskId}/approve`, { status })
+    .then(res => {
+      this.fetchTasks()
+    })
+    .catch(err => console.log(err))
+  }
+  fetchTasks() {
     customAuth()
       .get("/tasks/family")
-      .then(data => {
-        this.setState({ isLoading: false });
+      .then(res => {
+        this.setState({ isLoading: false, tasks: res.data.data });
       })
       .catch(err => {
         this.setState({ isLoading: false });
       });
   }
-  createTask = () => {
-    this.props.history.push("/manage/tasks");
-  };
   render() {
     return (
       <ContentContainer>
@@ -80,6 +91,7 @@ class ParentPanel extends Component {
               key={task.id}
               task={task}
               isAdmin={this.props.user.isAdmin}
+              approveTask={this.approveTask}
             />
           ))}
         <Footer />
