@@ -35,11 +35,7 @@ export const checkRegisterInputs = values => {
 	if (isEmpty(username)) {
 		errors.username = '*Required';
 	}
-	if (
-		!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-			String(email).toLowerCase(),
-		)
-	) {
+	if (!/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
 		errors.email = '*Invalid Email Address';
 	}
 	if (isEmpty(email)) {
@@ -47,6 +43,29 @@ export const checkRegisterInputs = values => {
 	}
 	if (password !== password2) {
 		errors.password2 = 'Passwords must match';
+	}
+
+	return {
+		errors,
+		isValid : isEmpty(errors),
+	};
+};
+
+export const checkAddMemberInputs = values => {
+	let errors = {};
+
+	const { username, password, password2 } = values;
+
+	if (isEmpty(username)) {
+		errors.username = '*Required';
+	}
+
+	if (isEmpty(password)) {
+		errors.password = '*Required';
+	}
+
+	if (password !== password2) {
+		errors.password2 = '*Passwords must match';
 	}
 
 	return {

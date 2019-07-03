@@ -4,6 +4,7 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import IconCard from '../card/IconCard';
 import Person from '@material-ui/icons/Person';
 import HomeRounded from '@material-ui/icons/HomeRounded';
+import { connect } from 'react-redux';
 
 const ImgStyle = styled.div`
 	img {
@@ -19,7 +20,13 @@ const ImgStyle = styled.div`
 const Icons = styled.div`
 	display: flex;
 	justify-content: space-around;
-	width: 100%;
+	width: 70%;
+	margin-bottom: 130px;
+	@media screen and (max-width: 500px) {
+		flex-wrap: wrap;
+		align-items: space-between;
+		width: 33%;
+	}
 `;
 
 const ContentContainer = styled.div`
@@ -31,10 +38,6 @@ const ContentContainer = styled.div`
     height: 100%;
     clear: both;
     width: 100%;
-    padding-left: 100px;
-    @media screen and (max-width: 500px) {
-        padding-left: 0px;
-    }
     h2 {
         margin 5px 0 40px 0;
         font-family: 'Nunito', sans-serif;
@@ -47,6 +50,7 @@ const ContentContainer = styled.div`
 
 class BadgerDen extends Component {
 	render() {
+		console.log(this.props.user);
 		return (
 			<ContentContainer>
 				<ImgStyle>
@@ -54,13 +58,15 @@ class BadgerDen extends Component {
 				</ImgStyle>
 				<h2>Badger's Den</h2>
 				<Icons>
-					<IconCard text={'Schedule'} Icon={CalendarToday} />
-					<IconCard text={'Family'} Icon={Person} />
-					<IconCard text={'My Lists'} Icon={HomeRounded} />
+					<IconCard text={'Calendar'} Icon={CalendarToday} />
+					{this.props.user.isAdmin ? <IconCard text={'Family'} Icon={Person} /> : null}
+					<IconCard text={'Tasks'} Icon={HomeRounded} />
 				</Icons>
 			</ContentContainer>
 		);
 	}
 }
 
-export default BadgerDen;
+const mapStateToProps = state => ({ user: state.users.user });
+
+export default connect(mapStateToProps, {})(BadgerDen);

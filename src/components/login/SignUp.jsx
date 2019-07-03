@@ -192,4 +192,3 @@ function SignUp(props) {
 const mapStateToProps = state => ({ errors: state.auth.errors });
 
 export default connect(mapStateToProps)(SignUp);
-

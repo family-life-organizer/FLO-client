@@ -1,7 +1,6 @@
 import React from 'react';
 import Favorite from '@material-ui/icons/Favorite';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 const CardContainer = styled.div`
 	background-color: lightgrey;
@@ -12,7 +11,7 @@ const CardContainer = styled.div`
 	height: 125px;
 	width: 110px;
 	padding-top: 15px;
-	margin: 10px 0 10px 0;
+	margin-bottom: 15px;
 	@media screen and (max-width: 500px) {
 		height: 115px;
 		width: 100px;
@@ -37,19 +36,17 @@ const TextBar = styled.div`
 	}
 `;
 
-const IconCard = props => {
-	const { text, Icon } = props;
+const FamilyCard = props => {
+	const { text, id, Icon } = props;
 	return (
-		<CardContainer>
+		<CardContainer onClick={(e) => props.clickHandler(e, id)}>
 			<Icon style={{ height: '64px', width: '64px', color: '#666666', margin: '10px 0 5px 0' }} />
-			<Link to={`/${text}`} style={{ width: '100%' }}>
-				<TextBar>
-					{text}
-					<Favorite style={{ height: '16px', width: '16px', color: 'white', paddingBottom: '2px' }} />
-				</TextBar>
-			</Link>
+			<TextBar>
+				{text}
+				<Favorite style={{ height: '16px', width: '16px', color: 'white', paddingBottom: '2px' }} />
+			</TextBar>
 		</CardContainer>
 	);
 };
 
-export default IconCard;
+export default FamilyCard;

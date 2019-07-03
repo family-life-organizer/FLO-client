@@ -28,4 +28,8 @@ export const Styles = css`
 	p {
 		font-size: 1.6rem;
 	}
+
+	html {
+		background-color: #FFFFFF;
+	}
 `;
