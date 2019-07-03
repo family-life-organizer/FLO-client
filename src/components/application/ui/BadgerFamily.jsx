@@ -96,11 +96,6 @@ function BadgerFamily(props) {
 
   const classes = useStyles();
 
-  const clickHandler = (e, id) => {
-    e.preventDefault();
-    setMemberid(id);
-  };
-
   const handleAssign = e => {
     e.preventDefault();
     props.doUpdateTask(taskId, childId);
@@ -128,7 +123,6 @@ function BadgerFamily(props) {
             text={member.username}
             id={member.id}
             Icon={Person}
-            clickHandler={clickHandler}
           />
         ))}
       </Icons>
@@ -154,7 +148,7 @@ function BadgerFamily(props) {
 
           <FormHelperText>Select a family member</FormHelperText>
           <Select
-            value={taskId}
+            value={childId}
             onChange={e => setChildId(e.target.value)}
             className={classes.selectEmpty}
           >

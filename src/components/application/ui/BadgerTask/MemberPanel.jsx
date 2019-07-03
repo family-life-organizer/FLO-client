@@ -44,8 +44,10 @@ class MemberPanel extends Component {
 	completeTask = (taskId) => {
 		customAuth().patch(`/tasks/${taskId}`)
 		.then(data => {
+      console.log(data);
 			this.fetchTasks()
 		}).catch(err => {
+      console.log(err);
 			this.setState({ isLoading: false})
 		})
 	}

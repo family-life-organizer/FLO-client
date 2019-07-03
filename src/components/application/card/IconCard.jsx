@@ -40,15 +40,17 @@ const TextBar = styled.div`
 const IconCard = props => {
 	const { text, Icon } = props;
 	return (
+		<div>
+		<Link to={`/${text}`} style={{ width: '100%' }}>
 		<CardContainer>
 			<Icon style={{ height: '64px', width: '64px', color: '#666666', margin: '10px 0 5px 0' }} />
-			<Link to={`/${text}`} style={{ width: '100%' }}>
 				<TextBar>
 					{text}
 					<Favorite style={{ height: '16px', width: '16px', color: 'white', paddingBottom: '2px' }} />
 				</TextBar>
-			</Link>
 		</CardContainer>
+		</Link>
+		</div>
 	);
 };
 

@@ -54,14 +54,14 @@ class ParentPanel extends Component {
     .catch(err => console.log(err))
   }
   fetchTasks = () => {
-    customAuth()
-      .get("/tasks/family")
-      .then(res => {
-        this.setState({ isLoading: false, tasks: res.data.data });
-      })
-      .catch(err => {
-        this.setState({ isLoading: false });
-      });
+      customAuth()
+        .get("/tasks/family")
+        .then(res => {
+          this.setState({ isLoading: false, tasks: res.data.data });
+        })
+        .catch(err => {
+          this.setState({ isLoading: false });
+        });
   }
   render() {
     return (

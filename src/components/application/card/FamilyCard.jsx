@@ -19,7 +19,6 @@ const CardContainer = styled.div`
 `;
 
 const TextBar = styled.div`
-	cursor: pointer;
 	color: white;
 	width: 100%;
 	height: 36px;
@@ -39,7 +38,7 @@ const TextBar = styled.div`
 const FamilyCard = props => {
 	const { text, id, Icon } = props;
 	return (
-		<CardContainer onClick={(e) => props.clickHandler(e, id)}>
+		<CardContainer>
 			<Icon style={{ height: '64px', width: '64px', color: '#666666', margin: '10px 0 5px 0' }} />
 			<TextBar>
 				{text}

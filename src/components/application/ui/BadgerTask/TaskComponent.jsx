@@ -105,14 +105,17 @@ function TaskComponent(props) {
               </Typography>
             </CardContent>
             <CardActions style={{ display: "flex", justifyContent: "center" }}>
-              {!props.isAdmin && (
+              {!props.isAdmin && props.task.status==="completed" && (
+                <p>Task is pending review</p>
+              )}
+              {!props.isAdmin && props.task.status==="pending" && (
                 <Button
                   fullWidth
                   variant="contained"
                   style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
                   className={classes.submit}
                   size="small"
-                  onClick={props.completeTask}
+                  onClick={() => props.completeTask(props.task.id)}
                 >
                   Complete
                 </Button>
@@ -138,7 +141,7 @@ function TaskComponent(props) {
                   style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
                   className={classes.submit}
                   size="small"
-                  onClick={() => props.approveTask(props.task.id,"declined")}
+                  onClick={() => props.approveTask(props.task.id,"pending")}
                 >
                   Reject
                 </Button>
