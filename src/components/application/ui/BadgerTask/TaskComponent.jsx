@@ -6,6 +6,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import moment from 'moment'
 
 const TaskCard = styled.div`
   display: flex;
@@ -71,7 +72,7 @@ function TaskComponent(props) {
               </Typography>
               <br />
               <Typography variant="h6" component="h3">
-                2019-07-03 5:00:00 GMT
+                { moment(props.task.dueDate).format('llll')}
               </Typography>
             </CardContent>
             <CardActions style={{ display: "flex", justifyContent: "center" }}>
