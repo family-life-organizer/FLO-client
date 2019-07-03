@@ -13,7 +13,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { doUpdateAccount, doAddFamilyMember } from '../../../actions/userActions';
 import FloNav from '../navbar/FloNav';
+import Spinner from '../../../utils/Spinner';
 import Footer from '../footer/Footer';
+import { toast } from "react-toastify";
 
 const ImgStyle = styled.div`
 	width: 100%;
@@ -117,14 +119,30 @@ function BadgerProfile(props) {
 
 	const handleUpdateSubmit = e => {
 		e.preventDefault();
+		if (firstName === '') {
+			setfirstName(props.user.firstName)
+		}
+		if (lastName === '') {
+			setLastName(props.user.lastName)
+		}
+		if (email === '') {
+			setEmail(props.user.email)
+		}
+		if (username === '') {
+			setUsername(props.user.username)
+		}
 		if (password === password2) {
-			props.doUpdateAccount({ firstName, lastName, email, password, username });
+			props.doUpdateAccount({ firstName, lastName, email, password, username })
+			.then(() => toast.success("Account update successfully."))
 		}
 	};
 
 	const handleBadgerSubmit = e => {
 		e.preventDefault();
 		props.doAddFamilyMember({ username: badgerUser, password: badgerPassword, password2: badgerPassword2 });
+		if (props.addBadger) {
+			toast.success("Badger added successfully.")
+		}
 	};
 
 	return (
@@ -134,6 +152,9 @@ function BadgerProfile(props) {
 				<img src={process.env.PUBLIC_URL + '/Badger.jpg'} />
 			</ImgStyle>
 			<h2>Update Profile</h2>
+			<div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
+				{props.isLoading && <Spinner /> }
+			</div>
 			<form className={classes.form} onSubmit={handleUpdateSubmit}>
 				<Grid container spacing={2}>
 					<Grid item xs={12} sm={6}>
@@ -194,6 +215,7 @@ function BadgerProfile(props) {
 							type='password'
 							id='password'
 							autoComplete='Password'
+							required
 							value={password}
 							onChange={e => setPassword(e.target.value)}
 						/>
@@ -207,6 +229,7 @@ function BadgerProfile(props) {
 							type='password'
 							id='confirmpassword'
 							autoComplete='Password'
+							required
 							value={password2}
 							onChange={e => setPassword2(e.target.value)}
 						/>
@@ -227,6 +250,9 @@ function BadgerProfile(props) {
 				</Button>
 			</form>
 			<h2> Add New Badger </h2>
+			<div style={{display: 'flex', justifyContent: 'center', width: '100%'}}>
+				{props.isLoading && <Spinner /> }
+			</div>
 			<form className={classes.form} onSubmit={handleBadgerSubmit}>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
@@ -283,6 +309,6 @@ function BadgerProfile(props) {
 	);
 }
 
-const mapStateToProps = state => ({ user: state.users.user });
+const mapStateToProps = state => ({ user: state.users.user, isLoading: state.auth.isLoading, updateAccount: state.auth.updateAccount, addBadger: state.auth.addBadger });
 
 export default connect(mapStateToProps, { doUpdateAccount, doAddFamilyMember })(BadgerProfile);
