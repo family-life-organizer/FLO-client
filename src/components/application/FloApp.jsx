@@ -16,8 +16,10 @@ const AppContainer = styled.div`
 
 class FloApp extends Component {
 	async componentDidMount() {
-		await this.props.doGetCategories();
-		await this.props.doGetFamilyMembers();
+		if(this.props.user.isAdmin) {
+			await this.props.doGetCategories();
+			await this.props.doGetFamilyMembers();
+		}
 	}
 	render() {
 		return (
