@@ -19,9 +19,8 @@ export const doLogin = credentials => async dispatch => {
     const response = await api.post("/login", userLogin);
     dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
   } catch (error) {
-	dispatch({ type: types.LOGIN_FAILURE, payload: error });
-	dispatch({ type: types.RESET });
-
+    dispatch({ type: types.LOGIN_FAILURE, payload: error });
+    dispatch({ type: types.RESET });
   }
 };
 
@@ -31,6 +30,9 @@ export const doRegisterAccount = accountInfo => async dispatch => {
     const { isValid, errors } = checkRegisterInputs(accountInfo);
     if (!isValid) {
       dispatch({ type: types.REGISTER_FAILURE, payload: errors });
+      setTimeout(() => {
+        dispatch({ type: types.RESET });
+      }, 1000);
     } else {
       const { email, password, username, firstName, lastName } = accountInfo;
       const response = await api.post("/signup", {
@@ -43,7 +45,9 @@ export const doRegisterAccount = accountInfo => async dispatch => {
       dispatch({ type: types.REGISTER_SUCCESS, payload: response.data });
     }
   } catch (error) {
+    console.log("asd");
     dispatch({ type: types.REGISTER_FAILURE, payload: error });
+    dispatch({ type: types.RESET });
   }
 };
 
