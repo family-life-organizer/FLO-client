@@ -3,7 +3,8 @@ import types from "../actions";
 const initialState = {
   categories: [],
   familyTasks: [],
-  errors: null
+  errors: null,
+  isTaskAssigned: true
 };
 
 export default (state = initialState, action) => {
@@ -19,6 +20,11 @@ export default (state = initialState, action) => {
       return { ...state, categories: [], errors: null };
     case types.FAMILY_TASKS_SUCCESS:
       return { ...state, familyTasks: action.payload, errors: null };
+      case types.UPDATE_TASK_SUCCESS:
+      return { ...state, isTaskAssigned: true, errors: null };
+      case types.RESET:
+			return { ...state, isLoading: false, errors: null, isTaskAssigned: false };
+      
     default:
       return state;
   }

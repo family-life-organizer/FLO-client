@@ -14,7 +14,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import { stat } from "fs";
+import { toast } from "react-toastify";
 
 const ImgStyle = styled.div`
   width: 100%;
@@ -92,7 +92,6 @@ function BadgerFamily(props) {
   const [taskId, setTaskid] = useState(0);
   const [childId, setChildId] = useState(0);
   const [memberId, setMemberid] = useState(0);
-  
 
   const classes = useStyles();
 
@@ -102,12 +101,15 @@ function BadgerFamily(props) {
   };
 
   const handleAssign = e => {
-	e.preventDefault();
+    e.preventDefault();
     props.doUpdateTask(taskId, childId);
     // setMemberid(0);
     // setTaskid(0);
   };
-  console.log(props, "======");
+
+  if (props.isTaskAssigned) {
+	  toast.success("Task Assigned Successfully");
+  }
   return (
     <ContentContainer>
       <FloNav />
@@ -145,7 +147,7 @@ function BadgerFamily(props) {
             ))}
           </Select>
 
-          <FormHelperText>Select a family</FormHelperText>
+          <FormHelperText>Select a family member</FormHelperText>
           <Select
             value={taskId}
             onChange={e => setChildId(e.target.value)}
@@ -177,7 +179,8 @@ const mapStateToProps = state => ({
   family: state.users.family,
   categories: state.tasks.categories,
   tasks: state.users.user.tasks,
-  familyTasks: state.tasks.familyTasks
+  familyTasks: state.tasks.familyTasks,
+  isTaskAssigned: state.tasks.isTaskAssigned
 });
 
 export default connect(

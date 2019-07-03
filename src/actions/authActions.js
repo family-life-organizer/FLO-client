@@ -19,7 +19,9 @@ export const doLogin = credentials => async dispatch => {
     const response = await api.post("/login", userLogin);
     dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
   } catch (error) {
-    dispatch({ type: types.LOGIN_FAILURE, payload: error });
+	dispatch({ type: types.LOGIN_FAILURE, payload: error });
+	dispatch({ type: types.RESET });
+
   }
 };
 
