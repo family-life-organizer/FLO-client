@@ -72,9 +72,11 @@ export const doCreateTask = newTask => async dispatch => {
   try {
     const response = await customAuth().post("/tasks", newTask);
     const res = await customAuth().get(`/users/${newTask.assigneeId}`);
-    dispatch({ type: types.CREATE_TASK_SUCCESS, payload: res.data.data });
+	dispatch({ type: types.CREATE_TASK_SUCCESS, payload: res.data.data });
+	dispatch({ type: types.RESET });
   } catch (error) {
     dispatch({ type: types.CREATE_TASK_FAILURE, payload: error.response.data });
+    dispatch({ type: types.RESET });
   }
 };
 
@@ -86,9 +88,11 @@ export const doCreateCategory = name => async dispatch => {
     dispatch({
       type: types.CREATE_CATEGORY_SUCCESS,
       payload: res.data.categories
-    });
+	});
+	dispatch({ type: types.RESET });
   } catch (error) {
-    dispatch({ type: types.CREATE_CATEGORY_FAILURE });
+    dispatch({ type: types.CREATE_CATEGORY_FAILURE, payload: error });
+    dispatch({ type: types.RESET });
   }
 };
 
@@ -120,8 +124,7 @@ Payload: {
     dispatch({ type: types.UPDATE_TASK_SUCCESS });
     dispatch({ type: types.RESET });
   } catch (error) {
-	dispatch({ type: types.UPDATE_TASK_FAILURE, payload: error });
-	dispatch({ type: types.RESET });
-
+    dispatch({ type: types.UPDATE_TASK_FAILURE, payload: error });
+    dispatch({ type: types.RESET });
   }
 };

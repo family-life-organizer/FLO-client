@@ -7,6 +7,8 @@ import App from "./components/App.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
+import * as serviceWorker from "./serviceWorker";
+
 const store = createStore();
 
 const application = (
@@ -24,3 +26,6 @@ const application = (
 const rootDocument = document.getElementById("root");
 
 ReactDOM.render(application, rootDocument);
+
+
+serviceWorker.register();
