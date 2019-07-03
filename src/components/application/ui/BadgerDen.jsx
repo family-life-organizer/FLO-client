@@ -20,7 +20,13 @@ const ImgStyle = styled.div`
 const Icons = styled.div`
 	display: flex;
 	justify-content: space-around;
-	width: 100%;
+	width: 70%;
+	margin-bottom: 130px;
+	@media screen and (max-width: 500px) {
+		flex-wrap: wrap;
+		align-items: space-between;
+		width: 33%;
+	}
 `;
 
 const ContentContainer = styled.div`

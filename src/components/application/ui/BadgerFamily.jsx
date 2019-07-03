@@ -1,10 +1,19 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import { doUpdateTask } from '../../../actions/userActions';
 import FloNav from '../navbar/FloNav';
 import Footer from '../footer/Footer';
 import styled from 'styled-components';
 import FamilyCard from '../card/FamilyCard';
 import Person from '@material-ui/icons/Person';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const ImgStyle = styled.div`
 	width: 100%;
@@ -19,6 +28,13 @@ const ImgStyle = styled.div`
 			height: 78px;
 		}
 	}
+`;
+
+const Icons = styled.div`
+	display: flex;
+	justify-content: space-around;
+	max-width: 340px;
+	flex-wrap: wrap;
 `;
 
 const ContentContainer = styled.div`
@@ -43,7 +59,7 @@ const ContentContainer = styled.div`
 		text-align: center;
 		button {
 			width: 50%;
-			margin-bottom: 50px;
+			margin: 50px 0 50px 0;
 			@media screen and (max-width: 500px) {
 				width: 80%;
 			}
@@ -55,22 +71,81 @@ const ContentContainer = styled.div`
 	}
 `;
 
-class BadgerFamily extends Component {
-	render() {
-		return (
-			<ContentContainer>
-				<FloNav />
-				<ImgStyle>
-					<img src={process.env.PUBLIC_URL + '/Badger.jpg'} />
-				</ImgStyle>
-				<h2>Family</h2>
-				{this.props.family.map(member => <FamilyCard text={member.username} Icon={Person} />)}
-				<Footer />
-			</ContentContainer>
-		);
+const useStyles = makeStyles(theme => ({
+	'@global' : {
+		body : {
+			backgroundColor : '#FFFFFF',
+		},
+	},
+	form      : {
+		width        : '100%', // Fix IE 11 issue.
+		marginTop    : theme.spacing(1),
+		marginBottom : theme.spacing(1),
+	},
+	submit    : {
+		margin : theme.spacing(3, 0, 2),
+	},
+}));
+
+function BadgerFamily(props) {
+	const [ taskId, setTaskid ] = useState(0);
+	const [ memberId, setMemberid ] = useState(0);
+
+	const classes = useStyles();
+
+	const clickHandler = (e, id) => {
+		e.preventDefault();
+		setMemberid(id);
 	}
+
+	const handleAssign = e => {
+		e.preventDefault();
+		props.doUpdateTask(taskId, memberId);
+		setMemberid(0);
+		setTaskid(0);
+	}
+
+	return (
+		<ContentContainer>
+			<FloNav />
+			<ImgStyle>
+				<img src={process.env.PUBLIC_URL + '/Badger.jpg'} />
+			</ImgStyle>
+			<h2>Family</h2>
+			<Icons>
+				{props.family.map(member => <FamilyCard text={member.username} id={member.id} Icon={Person} clickHandler={clickHandler} />)}
+			</Icons>
+			<h2 style={{ paddingTop: "30px"}}>Assign Task</h2>
+			<form className={classes.form} onSubmit={handleAssign}>
+				<FormControl style={{width: '60%'}} className={classes.formControl}>
+					<InputLabel shrink>Task</InputLabel>
+					<Select
+						value={taskId}
+						onChange={e => setTaskid(e.target.value)}
+						// input={<Input name='category' id='category-input' />}
+						className={classes.selectEmpty}>
+						{props.tasks.map(task => (
+							<MenuItem key={task.id} value={task.id}>
+								{task.description}
+							</MenuItem>
+						))}
+					</Select>
+					<FormHelperText>Select a task</FormHelperText>
+				</FormControl>
+				<Button
+					type='submit'
+					fullWidth
+					variant='contained'
+					style={{ color: '#FFFFFF', backgroundColor: '#2439A8' }}
+					className={classes.submit}>
+					Assign
+				</Button>
+			</form>
+			<Footer />
+		</ContentContainer>
+	);
 }
 
-const mapStateToProps = state => ({ family: state.users.family });
+const mapStateToProps = state => ({ family: state.users.family, tasks: state.users.user.tasks });
 
-export default connect(mapStateToProps, {})(BadgerFamily);
+export default connect(mapStateToProps, { doUpdateTask })(BadgerFamily);

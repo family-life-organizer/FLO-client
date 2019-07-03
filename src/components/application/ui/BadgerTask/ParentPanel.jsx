@@ -18,6 +18,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { connect } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
+
 const ContentContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
@@ -160,6 +161,7 @@ function ParentPanel(props) {
 								showTimeSelect
 								dateFormat='Pp'
 							/>
+							<FormHelperText>Select a due date</FormHelperText>
 						</FormControl>
 					</Grid>
 				</Grid>

@@ -11,6 +11,7 @@ const CardContainer = styled.div`
 	height: 125px;
 	width: 110px;
 	padding-top: 15px;
+	margin-bottom: 15px;
 	@media screen and (max-width: 500px) {
 		height: 115px;
 		width: 100px;
@@ -36,9 +37,9 @@ const TextBar = styled.div`
 `;
 
 const FamilyCard = props => {
-	const { text, Icon } = props;
+	const { text, id, Icon } = props;
 	return (
-		<CardContainer>
+		<CardContainer onClick={(e) => props.clickHandler(e, id)}>
 			<Icon style={{ height: '64px', width: '64px', color: '#666666', margin: '10px 0 5px 0' }} />
 			<TextBar>
 				{text}
