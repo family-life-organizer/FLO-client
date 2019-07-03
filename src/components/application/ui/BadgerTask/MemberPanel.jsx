@@ -31,9 +31,20 @@ class MemberPanel extends Component {
 	};
 	
 	componentDidMount() {
+		this.fetchTasks()
+	}
+	fetchTasks = () => {
 		customAuth().get(`/users/${this.props.user.id}`)
 		.then(data => {
 			this.setState({ isLoading: false, userDetails: data.data.data, tasks: data.data.data.tasks })
+		}).catch(err => {
+			this.setState({ isLoading: false})
+		})
+	}
+	completeTask = (taskId) => {
+		customAuth().patch(`/tasks/${taskId}`)
+		.then(data => {
+			this.fetchTasks()
 		}).catch(err => {
 			this.setState({ isLoading: false})
 		})
@@ -44,7 +55,7 @@ class MemberPanel extends Component {
 				<FloNav />
 				{!this.state.isLoading && !this.state.tasks.length && <TaskComponent />}
         { this.state.tasks && this.state.tasks.map(task =>(
-					<TaskComponent key={task.id} task={task} isAdmin={this.props.user.isAdmin} />
+					<TaskComponent key={task.id} task={task} isAdmin={this.props.user.isAdmin} completeTask={this.completeTask} />
 				))}
         <Footer />
       </ContentContainer>

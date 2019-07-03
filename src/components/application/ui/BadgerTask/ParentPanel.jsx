@@ -46,7 +46,6 @@ class ParentPanel extends Component {
   createTask = () => {
     this.props.history.push("/manage/tasks");
   };
-
   approveTask = (taskId, status) => {
     customAuth().patch(`/tasks/${taskId}/approve`, { status })
     .then(res => {
@@ -54,7 +53,7 @@ class ParentPanel extends Component {
     })
     .catch(err => console.log(err))
   }
-  fetchTasks() {
+  fetchTasks = () => {
     customAuth()
       .get("/tasks/family")
       .then(res => {
