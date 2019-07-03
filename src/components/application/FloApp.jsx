@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { doGetCategories } from '../../actions/userActions';
 import FloNav from './navbar/FloNav';
 import BadgerDen from './ui/BadgerDen';
 import Footer from './footer/Footer';
@@ -14,6 +15,9 @@ const AppContainer = styled.div`
 `;
 
 class FloApp extends Component {
+	componentDidMount() {
+		this.props.doGetCategories();
+	}
 	render() {
 		return (
 			<AppContainer>
@@ -27,4 +31,4 @@ class FloApp extends Component {
 
 const mapStateToProps = state => ({ user: state.users.user });
 
-export default connect(mapStateToProps, {})(FloApp);
+export default connect(mapStateToProps, { doGetCategories })(FloApp);

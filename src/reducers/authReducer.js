@@ -45,6 +45,24 @@ export default (state = initialState, action) => {
 			return { ...state, isLoading: false };
 		case types.ADD_FAMILY_MEMBER_FAILURE:
 			return { ...state, isLoading: false };
+		case types.GET_CATEGORIES_START:
+			return { ...state, isLoading: true };
+		case types.GET_CATEGORIES_SUCCESS:
+			return { ...state, isLoading: false };
+		case types.GET_CATEGORIES_FAILURE:
+			return { ...state, isLoading: false };
+		case types.CREATE_CATEGORY_START:
+			return { ...state, isLoading: true };
+		case types.CREATE_CATEGORY_SUCCESS:
+			return { ...state, isLoading: false };
+		case types.CREATE_CATEGORY_FAILURE:
+			return { ...state, isLoading: false };
+		case types.CREATE_TASK_START:
+			return { ...state, isLoading: true };
+		case types.CREATE_TASK_SUCCESS:
+			return { ...state, isLoading: false };
+		case types.CREATE_TASK_FAILURE:
+			return { ...state, isLoading: false };
 		default:
 			return state;
 	}

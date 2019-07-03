@@ -188,7 +188,9 @@ function MenuAppBar(props) {
 						<ListItemIcon>
 							<HomeRounded />
 						</ListItemIcon>
-						<ListItemText primary='My Tasks' />
+						<Link to='/tasks'>
+							<ListItemText primary={props.user.isAdmin ? 'Task Panel' : 'My Tasks'} />
+						</Link>
 					</ListItem>
 					<ListItem button>
 						<ListItemIcon>
@@ -225,4 +227,6 @@ function MenuAppBar(props) {
 	);
 }
 
-export default connect(null, { doGetFamilyMembers, doLogout })(MenuAppBar);
+const mapStateToProps = state => ({ user: state.users.user });
+
+export default connect(mapStateToProps, { doGetFamilyMembers, doLogout })(MenuAppBar);

@@ -10,6 +10,7 @@ import CssBaseLine from '@material-ui/core/CssBaseline';
 import jwt_decode from 'jwt-decode';
 import BadgerCalendar from './application/ui/BadgerCalendar';
 import BadgerProfile from './application/ui/BadgerProfile';
+import ParentPanel from './application/ui/BadgerTask/ParentPanel';
 
 class App extends Component {
 	async componentDidMount() {
@@ -34,7 +35,10 @@ class App extends Component {
 		} else {
 			await doRegisterAccount(values);
 		}
-		this.props.isAuth && this.props.history.push('/app');
+		if (this.props.isAuth) {
+			await this.props.doWelcomeBack();
+			this.props.history.push('/app');
+		}
 	};
 
 	render() {
@@ -45,6 +49,7 @@ class App extends Component {
 				<Switch>
 					<PrivateRoute path='/calendar' component={BadgerCalendar} />
 					<PrivateRoute path='/profile' component={BadgerProfile} />
+					<PrivateRoute path='/tasks' component={ParentPanel} />
 					<PrivateRoute path='/app' component={FloApp} />
 					<Route exact path='/' render={() => <Onboard handleSubmit={this.onHandleSubmit} />} />
 				</Switch>

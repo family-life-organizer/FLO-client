@@ -7,9 +7,9 @@ export const doGetCategories = () => async dispatch => {
 	dispatch({ type: types.GET_CATEGORIES_START });
 	try {
 		const response = await customAuth().get('/categories/family');
-		console.log(response);
+		dispatch({ type: types.GET_CATEGORIES_SUCCESS, payload: response.data.categories });
 	} catch (error) {
-		console.log(error);
+		dispatch({ type: types.GET_CATEGORIES_FAILURE, payload: error.response.data });
 	}
 };
 
@@ -74,23 +74,14 @@ Payload: {
 	}
 };
 
-export const doGetFamilyTaskCategories = () => async dispatch => {
-	dispatch({ type: types.GET_FAMILY_CATEGORIES_START });
-	try {
-		const response = await customAuth().get('/categories/family');
-		console.log(response);
-	} catch (error) {
-		console.log(error);
-	}
-};
-
 export const doCreateCategory = name => async dispatch => {
 	dispatch({ type: types.CREATE_CATEGORY_START });
 	try {
-		const response = await customAuth().get('/categories', name);
-		console.log(response);
+		const response = await customAuth().post('/categories', name);
+		const res = await customAuth().get('/categories/family');
+		dispatch({ type: types.CREATE_CATEGORY_SUCCESS, payload: res.data.categories });
 	} catch (error) {
-		console.log(error);
+		dispatch({ type: types.CREATE_CATEGORY_FAILURE });
 	}
 };
 
@@ -114,7 +105,7 @@ Payload: {
 }	*/
 	dispatch({ type: types.UPDATE_TASK_START });
 	try {
-		const response = await customAuth().post('/tasks', updatedTask);
+		const response = await customAuth().patch(`/tasks/${id}`, updatedTask);
 		console.log(response);
 	} catch (error) {
 		console.log(error);

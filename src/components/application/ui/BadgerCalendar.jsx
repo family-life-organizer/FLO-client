@@ -19,7 +19,7 @@ class BadgerCalendar extends Component {
 				<FloNav />
 				<Calendar
 					generalStyle={{
-						maxWidth        : '80%',
+						maxWidth        : '90%',
 						margin          : '80px auto 0 auto',
 						backgroundColor : 'rgba(256,256,256,1)',
 						height          : '80%',
