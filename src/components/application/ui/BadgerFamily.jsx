@@ -14,6 +14,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { stat } from "fs";
 
 const ImgStyle = styled.div`
   width: 100%;
@@ -89,7 +90,9 @@ const useStyles = makeStyles(theme => ({
 
 function BadgerFamily(props) {
   const [taskId, setTaskid] = useState(0);
+  const [childId, setChildId] = useState(0);
   const [memberId, setMemberid] = useState(0);
+  
 
   const classes = useStyles();
 
@@ -99,10 +102,10 @@ function BadgerFamily(props) {
   };
 
   const handleAssign = e => {
-    e.preventDefault();
-    props.doUpdateTask(taskId, memberId);
-    setMemberid(0);
-    setTaskid(0);
+	e.preventDefault();
+    props.doUpdateTask(taskId, childId);
+    // setMemberid(0);
+    // setTaskid(0);
   };
   console.log(props, "======");
   return (
@@ -126,7 +129,7 @@ function BadgerFamily(props) {
       <form className={classes.form} onSubmit={handleAssign}>
         <FormControl style={{ width: "60%" }} className={classes.formControl}>
           <InputLabel shrink>Task</InputLabel>
-		  
+
           <FormHelperText>Select a task</FormHelperText>
 
           <Select
@@ -135,22 +138,22 @@ function BadgerFamily(props) {
             // input={<Input name='category' id='category-input' />}
             className={classes.selectEmpty}
           >
-            {props.categories.map(task => (
+            {props.familyTasks.map(task => (
               <MenuItem key={task.id} value={task.id}>
-                {task.name}
+                {task.description}
               </MenuItem>
             ))}
           </Select>
 
-          <FormHelperText>Select a task</FormHelperText>
-		  <Select
+          <FormHelperText>Select a family</FormHelperText>
+          <Select
             value={taskId}
-            onChange={e => setTaskid(e.target.value)}
+            onChange={e => setChildId(e.target.value)}
             className={classes.selectEmpty}
           >
-            {props.categories.map(task => (
-              <MenuItem key={task.id} value={task.id}>
-                {task.name}
+            {props.family.map(family => (
+              <MenuItem key={family.id} value={family.id}>
+                {family.username}
               </MenuItem>
             ))}
           </Select>
@@ -173,7 +176,8 @@ function BadgerFamily(props) {
 const mapStateToProps = state => ({
   family: state.users.family,
   categories: state.tasks.categories,
-  tasks: state.users.user.tasks
+  tasks: state.users.user.tasks,
+  familyTasks: state.tasks.familyTasks
 });
 
 export default connect(
