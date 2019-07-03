@@ -100,7 +100,9 @@ class ParentPanel extends Component {
 }
 
 const mapStateToProps = state => {
-  return { user: state.users.user };
+  return { user: state.users.user,
+    error: state.error
+   };
 };
 
 export default connect(
