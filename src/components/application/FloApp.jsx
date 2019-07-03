@@ -5,7 +5,7 @@ import FloNav from './navbar/FloNav';
 import BadgerDen from './ui/BadgerDen';
 import Footer from './footer/Footer';
 import styled from 'styled-components';
-import BadgerProfile from './ui/BadgerProfile';
+
 
 const AppContainer = styled.div`
 	display: flex;

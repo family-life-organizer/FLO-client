@@ -36,7 +36,7 @@ const TextBar = styled.div`
 `;
 
 const FamilyCard = props => {
-	const { text, id, Icon } = props;
+	const { text, Icon } = props;
 	return (
 		<CardContainer>
 			<Icon style={{ height: '64px', width: '64px', color: '#666666', margin: '10px 0 5px 0' }} />

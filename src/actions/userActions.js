@@ -63,6 +63,7 @@ export const doAddFamilyMember = addMemberDetails => async dispatch => {
       type: types.ADD_FAMILY_MEMBER_FAILURE,
       payload: error.response.data
     });
+    return error
   }
 };
 
@@ -95,9 +96,9 @@ export const doCompleteTask = taskId => async dispatch => {
   dispatch({ type: types.COMPLETE_TASK_START });
   try {
     const response = await customAuth().patch(`/tasks/${taskId}`);
-    console.log(response);
+    return response
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 
