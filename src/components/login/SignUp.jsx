@@ -14,7 +14,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import styled from 'styled-components';
-import Spinner from  '../../utils/Spinner'
 
 const ImgStyle = styled.div`
 	img {
@@ -60,21 +59,18 @@ function SignUp(props) {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		if (password === password2) {
-			props.handleSubmit({ firstName, lastName, email, password, username, password2 });
-		}
+		props.handleSubmit({ email, password, password2, username, firstName, lastName });
 	};
 	return (
 		<Container component='main' maxWidth='xs'>
 			<CssBaseline />
 			<div className={classes.paper}>
 				<ImgStyle>
-					<img src={process.env.PUBLIC_URL + '/Badger.jpg'} />
+					<img src={process.env.PUBLIC_URL + '/Badger.jpg'} alt='Badger' />
 				</ImgStyle>
 				<Typography component='h1' variant='h5'>
 					Sign up
 				</Typography>
-				{ props.isLoading && <Spinner />}
 				<form className={classes.form} onSubmit={handleSubmit}>
 					<Grid container spacing={2}>
 						<Grid item xs={12} sm={6}>
@@ -130,11 +126,7 @@ function SignUp(props) {
 								name='email'
 								autoComplete='email'
 								value={email}
-								error={
-									!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-										String(email).toLowerCase(),
-									)
-								}
+								error={props.errors && props.errors.email ? true : false}
 								onChange={e => setEmail(e.target.value)}
 							/>
 							{props.errors && props.errors.email && <FormHelperText>{props.errors.email}</FormHelperText>}
@@ -197,6 +189,7 @@ function SignUp(props) {
 	);
 }
 
-const mapStateToProps = state => ({ errors: state.auth.errors, isLoading: state.auth.isLoading });
+const mapStateToProps = state => ({ errors: state.auth.errors });
 
 export default connect(mapStateToProps)(SignUp);
+
