@@ -14,6 +14,7 @@ const TaskCard = styled.div`
 const useStyles = makeStyles({
     card: {
       minWidth: 275,
+      backgroundColor: '#A8A8A8'
     },
     bullet: {
       display: 'inline-block',
@@ -28,6 +29,7 @@ const useStyles = makeStyles({
     },
     submit: {
         borderRadius: 2,
+        width: '50%',
     }
   });
 
@@ -38,12 +40,15 @@ function TaskComponent(props) {
         <TaskCard>
             <Card className={classes.card}>
             <CardContent>
-                <Typography variant="h5" component="h2">
-                {bull}{props.task.description} 
+                <Typography style={{fontWeight: "bolder"}} variant="h5" component="h2">
+                {props.task.description} 
                 </Typography>
                 <br />
+                <Typography variant="h6" component="h3">
+                  2019-07-03 5:00:00 GMT
+                </Typography>
             </CardContent>
-            <CardActions>
+            <CardActions style={{ display: 'flex', justifyContent: 'center'}}>
                 <Button
                     fullWidth
                     variant='contained'

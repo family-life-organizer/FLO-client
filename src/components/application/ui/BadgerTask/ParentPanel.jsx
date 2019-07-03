@@ -28,6 +28,7 @@ const ContentContainer = styled.div`
 	margin-top: 100px;
 	margin-bottom: 100px;
 	height: 100%;
+	background-color: #FFFFFF;
 	width: 100%;
 	h2 {
 		width: 100%;
