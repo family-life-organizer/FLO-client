@@ -89,7 +89,7 @@ Payload: {
 }	*/
 	dispatch({ type: types.UPDATE_TASK_START });
 	try {
-		const response = await customAuth().patch(`/tasks/${id}`, updatedTask);
+		const response = await customAuth().patch(`/tasks/${id}`, {assigneeId: updatedTask});
 		console.log(response);
 	} catch (error) {
 		console.log(error);

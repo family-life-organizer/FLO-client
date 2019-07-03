@@ -167,8 +167,12 @@ function MenuAppBar(props) {
 								<Link to='/app'>
 									<MenuItem onClick={handleClose}>Home</MenuItem>
 								</Link>
+								{ props.user.isAdmin? 
 								<Link to='/profile'>
 									<MenuItem onClick={handleClose}>Profile</MenuItem>
+								</Link> : null }
+								<Link to="/">
+									<MenuItem onClick={props.doLogout}> Logout </MenuItem>
 								</Link>
 							</Menu>
 						</div>
@@ -204,6 +208,7 @@ function MenuAppBar(props) {
 							<ListItemText primary='Schedule' />
 						</Link>
 					</ListItem>
+					{ props.user.isAdmin ?
 					<ListItem button>
 						<ListItemIcon>
 							<Person />
@@ -211,7 +216,8 @@ function MenuAppBar(props) {
 						<Link to='/family'>
 							<ListItemText primary='Family Members' />
 						</Link>
-					</ListItem>
+					</ListItem> : null}
+					{ props.user.isAdmin ?
 					<ListItem button>
 						<ListItemIcon>
 							<Settings />
@@ -219,7 +225,7 @@ function MenuAppBar(props) {
 						<Link to='/profile'>
 							<ListItemText primary='Profile' />
 						</Link>
-					</ListItem>
+					</ListItem> : null }
 					<Divider />
 					<ListItem button>
 						<ListItemIcon>

@@ -12,6 +12,7 @@ const CardContainer = styled.div`
 	height: 125px;
 	width: 110px;
 	padding-top: 15px;
+	margin: 10px 0 10px 0;
 	@media screen and (max-width: 500px) {
 		height: 115px;
 		width: 100px;
