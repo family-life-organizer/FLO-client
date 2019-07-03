@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import styled from 'styled-components';
+import Spinner from "../../utils/Spinner";
 
 const ImgStyle = styled.div`
 	img {
@@ -66,6 +67,7 @@ function SignIn(props) {
 				<Typography component='h1' variant='h5'>
 					Sign in
 				</Typography>
+				{props.isLoading && <Spinner />}
 				<form className={classes.form} noValidate onSubmit={handleSubmit}>
 					<TextField
 						variant='outlined'
@@ -120,5 +122,5 @@ function SignIn(props) {
 	);
 }
 
-const mapStateToProps = state => ({ isAuth: state.auth.isAuth });
+const mapStateToProps = state => ({ isAuth: state.auth.isAuth, isLoading: state.auth.isLoading });
 export default connect(mapStateToProps)(SignIn);

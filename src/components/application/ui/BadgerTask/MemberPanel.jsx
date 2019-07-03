@@ -26,7 +26,7 @@ class MemberPanel extends Component {
     return (
         <ContentContainer>
             <FloNav />
-                {props.tasks.map(task => <TaskComponent task={task} />)}
+                {this.props.tasks.map(task => <TaskComponent task={task} />)}
             <Footer />
         </ContentContainer>
     );
