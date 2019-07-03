@@ -123,6 +123,7 @@ function BadgerFamily(props) {
             text={member.username}
             id={member.id}
             Icon={Person}
+            key={member.id}
           />
         ))}
       </Icons>
