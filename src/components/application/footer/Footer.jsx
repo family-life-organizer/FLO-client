@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import ScheduleRounded from '@material-ui/icons/ScheduleRounded';
+import HomeRounded from '@material-ui/icons/HomeRounded';
+import CalendarToday from '@material-ui/icons/CalendarToday';
 import Favorite from '@material-ui/icons/Favorite';
 import { Link } from 'react-router-dom';
 
@@ -35,7 +36,9 @@ const Footer = () => {
 	return (
 		<FooterStyle>
 			<IconStyle>
-				<Favorite style={{ color: 'white', width: '28px', height: '28px' }} />
+				<Link to='/calendar'>
+					<CalendarToday style={{ color: 'white', width: '24px', height: '24px' }} />
+				</Link>
 			</IconStyle>
 			<IconStyle>
 				<Link to='/profile'>
@@ -43,9 +46,7 @@ const Footer = () => {
 				</Link>
 			</IconStyle>
 			<IconStyle>
-				<Link to='/calendar'>
-					<ScheduleRounded style={{ color: 'white', width: '28px', height: '28px' }} />
-				</Link>
+				<HomeRounded style={{ color: 'white', width: '28px', height: '28px' }} />
 			</IconStyle>
 		</FooterStyle>
 	);

@@ -32,10 +32,6 @@ const ContentContainer = styled.div`
     height: 100%;
     clear: both;
     width: 100%;
-    padding-left: 100px;
-    @media screen and (max-width: 500px) {
-        padding-left: 0px;
-    }
     h2 {
         margin 5px 0 40px 0;
         font-family: 'Nunito', sans-serif;
@@ -48,6 +44,7 @@ const ContentContainer = styled.div`
 
 class BadgerDen extends Component {
 	render() {
+		console.log(this.props.user);
 		return (
 			<ContentContainer>
 				<ImgStyle>

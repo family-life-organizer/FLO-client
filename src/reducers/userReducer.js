@@ -2,25 +2,23 @@ import types from '../actions';
 import jwt_decode from 'jwt-decode';
 
 const initialState = {
-	user   : {},
-	errors : null,
+	user  : {},
+	error : null,
 };
 
 export default (state = initialState, action) => {
 	const { type, payload } = action;
 	switch (type) {
 		case types.LOGIN_SUCCESS:
-			const loginUser = jwt_decode(localStorage.getItem('user_token'));
-			return { user: loginUser };
+			return { user: payload.user };
 		case types.REGISTER_SUCCESS:
-			const newUser = jwt_decode(localStorage.getItem('user_token'));
-			return { user: newUser };
+			return { user: payload.user };
 		case types.LOGOUT:
-			return {};
-		case types.WELCOMEBACK:
-			const returningUser = jwt_decode(localStorage.getItem('user_token'));
-			return { user: returningUser };
-
+			return initialState;
+		case types.WELCOME_BACK_SUCCESS:
+			return { user: payload.user, error: null };
+		case types.WELCOME_BACK_FAILURE:
+			return { user: {}, error: payload };
 		default:
 			return state;
 	}

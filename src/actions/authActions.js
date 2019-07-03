@@ -1,5 +1,7 @@
 import types from './';
 import api from '../api/customApi';
+import { customAuth } from '../api/customAuth';
+import jwt_decode from 'jwt-decode';
 import { checkRegisterInputs } from '../utils/validators';
 
 export const doLogin = credentials => async dispatch => {
@@ -38,12 +40,16 @@ export const doRegisterAccount = accountInfo => async dispatch => {
 
 export const doLogout = () => ({ type: types.LOGOUT });
 
-export const doWelcomeBack = () => {
+export const doWelcomeBack = () => async dispatch => {
+	dispatch({ type: types.WELCOME_BACK_START });
 	const token = localStorage.getItem('login_token');
-	const user = localStorage.getItem('user_token');
-	const family = localStorage.getItem('family_token');
-	return {
-		type    : types.WELCOMEBACK,
-		payload : { token, user, family },
-	};
+	const decoded = jwt_decode(token);
+	try {
+		const userResponse = await customAuth().get(`/users/${decoded.id.toString()}`);
+		const user = userResponse.data.data;
+		dispatch({ type: types.WELCOME_BACK_SUCCESS, payload: { token, user } });
+	} catch (error) {
+		console.log(error);
+		return dispatch({ type: types.WELCOME_BACK_FAILURE, payload: error });
+	}
 };

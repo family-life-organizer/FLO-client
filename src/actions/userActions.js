@@ -56,3 +56,67 @@ export const doAddFamilyMember = addMemberDetails => async dispatch => {
 		dispatch({ type: types.ADD_FAMILY_MEMBER_FAILURE, payload: error.response.data });
 	}
 };
+
+export const doCreateTask = newTask => async dispatch => {
+	/*
+Payload: {
+    description: TEXT,
+    dueDate: DATETIME (2019-07-02 04:01:46 +0000)
+    categoryId: INTEGER,
+    assigneeId: INTEGER [optional]
+}	*/
+	dispatch({ type: types.CREATE_TASK_START });
+	try {
+		const response = await customAuth().post('/tasks', newTask);
+		console.log(response);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const doGetFamilyTaskCategories = () => async dispatch => {
+	dispatch({ type: types.GET_FAMILY_CATEGORIES_START });
+	try {
+		const response = await customAuth().get('/categories/family');
+		console.log(response);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const doCreateCategory = name => async dispatch => {
+	dispatch({ type: types.CREATE_CATEGORY_START });
+	try {
+		const response = await customAuth().get('/categories', name);
+		console.log(response);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const doCompleteTask = taskId => async dispatch => {
+	dispatch({ type: types.COMPLETE_TASK_START });
+	try {
+		const response = await customAuth().patch(`/tasks/${taskId}`);
+		console.log(response);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const doUpdateTask = (id, updatedTask) => async dispatch => {
+	/*
+Payload: {
+    description: TEXT,
+    dueDate: DATETIME (2019-07-02 04:01:46 +0000)
+    categoryId: INTEGER,
+    assigneeId: INTEGER [optional]
+}	*/
+	dispatch({ type: types.UPDATE_TASK_START });
+	try {
+		const response = await customAuth().post('/tasks', newTask);
+		console.log(response);
+	} catch (error) {
+		console.log(error);
+	}
+};

@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode';
 const initialState = {
 	isAuth    : false,
 	isLoading : false,
-	user      : {},
+	token     : {},
 	errors    : null,
 };
 
@@ -17,19 +17,22 @@ export default (state = initialState, action) => {
 		case types.LOGIN_START:
 			return { ...state, isAuth: false, isLoading: true, errors: null };
 		case types.LOGIN_SUCCESS:
-			return { ...state, isAuth: true, isLoading: false, user: payload.user, errors: null };
+			const token = jwt_decode(payload.token);
+			return { ...state, isAuth: true, isLoading: false, token: token, errors: null };
 		case types.LOGIN_FAILURE:
-			return { ...state, isAuth: false, isLoading: false, user: {}, errors: payload };
+			return { ...state, isAuth: false, isLoading: false, token: {}, errors: payload };
 		case types.REGISTER_START:
 			return { ...state, isAuth: false, isLoading: true, errors: null };
 		case types.REGISTER_SUCCESS:
-			let newUser = jwt_decode(payload.token);
-			return { ...state, isAuth: true, isLoading: false, errors: null, user: newUser };
+			const newToken = jwt_decode(payload.token);
+			return { ...state, isAuth: true, isLoading: false, errors: null, token: newToken };
 		case types.REGISTER_FAILURE:
-			return { ...state, isAuth: false, isLoading: false, user: {}, errors: payload };
-		case types.WELCOMEBACK:
-			let returnUser = jwt_decode(payload.token);
-			return { ...state, isAuth: true, isLoading: false, user: returnUser, errors: null };
+			return { ...state, isAuth: false, isLoading: false, token: {}, errors: payload };
+		case types.WELCOME_BACK_START:
+			return { ...state, isLoading: true };
+		case types.WELCOME_BACK_SUCCESS:
+			let returnToken = jwt_decode(payload.token);
+			return { ...state, isAuth: true, isLoading: false, token: returnToken, errors: null };
 		case types.GET_FAMILY_MEMBERS_START:
 			return { ...state, isLoading: true };
 		case types.GET_FAMILY_MEMBERS_SUCCESS:
