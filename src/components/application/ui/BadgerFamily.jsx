@@ -107,8 +107,12 @@ function BadgerFamily(props) {
     // setTaskid(0);
   };
 
+  if (props.errors) {
+    toast.error("Error Assigning Task");
+  }
+
   if (props.isTaskAssigned) {
-	  toast.success("Task Assigned Successfully");
+    toast.success("Task Assigned Successfully");
   }
   return (
     <ContentContainer>
@@ -180,7 +184,8 @@ const mapStateToProps = state => ({
   categories: state.tasks.categories,
   tasks: state.users.user.tasks,
   familyTasks: state.tasks.familyTasks,
-  isTaskAssigned: state.tasks.isTaskAssigned
+  isTaskAssigned: state.tasks.isTaskAssigned,
+  errors: state.tasks.errors
 });
 
 export default connect(

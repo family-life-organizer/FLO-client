@@ -118,6 +118,8 @@ Payload: {
     dispatch({ type: types.UPDATE_TASK_SUCCESS });
     dispatch({ type: types.RESET });
   } catch (error) {
-    console.log(error);
+	dispatch({ type: types.UPDATE_TASK_FAILURE, payload: error });
+	dispatch({ type: types.RESET });
+
   }
 };
