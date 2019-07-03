@@ -44,7 +44,7 @@ class MemberPanel extends Component {
 				<FloNav />
 				{!this.state.isLoading && !this.state.tasks.length && <TaskComponent />}
         { this.state.tasks && this.state.tasks.map(task =>(
-					<TaskComponent key={task.id} task={task} />
+					<TaskComponent key={task.id} task={task} isAdmin={this.props.user.isAdmin} />
 				))}
         <Footer />
       </ContentContainer>

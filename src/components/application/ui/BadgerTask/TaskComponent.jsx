@@ -75,15 +75,42 @@ function TaskComponent(props) {
               </Typography>
             </CardContent>
             <CardActions style={{ display: "flex", justifyContent: "center" }}>
-              <Button
+              {!props.isAdmin && (
+                <Button
                 fullWidth
                 variant="contained"
                 style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
                 className={classes.submit}
                 size="small"
+                onClick={props.completeTask}
               >
                 Complete
               </Button>
+              )}
+              { props.isAdmin && props.task.status !=='approved' ? (
+                <Button
+                fullWidth
+                variant="contained"
+                style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
+                className={classes.submit}
+                size="small"
+                onClick={() => props.approveTask('approved')}
+              >
+                Approve
+              </Button>
+              ) : ''}
+              { props.isAdmin && props.task.status === 'completed' ? (
+                <Button
+                fullWidth
+                variant="contained"
+                style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
+                className={classes.submit}
+                size="small"
+                onClick={() => props.approveTask('declined')}
+              >
+                Reject
+              </Button>
+              ) : ''}
             </CardActions>
           </React.Fragment>
         )}
