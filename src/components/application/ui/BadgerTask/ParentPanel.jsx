@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
-import { doCreateCategory } from '../../../../actions/userActions';
+import { doCreateCategory, doCreateTask } from '../../../../actions/userActions';
 import DatePicker from 'react-datepicker';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -17,7 +17,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { connect } from 'react-redux';
-
+import 'react-datepicker/dist/react-datepicker.css';
 const ContentContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
@@ -39,7 +39,7 @@ const ContentContainer = styled.div`
 		justify-content: center;
 		text-align: center;
 		button {
-			width: 30%;
+			width: 50%;
 			margin-bottom: 50px;
 			@media screen and (max-width: 500px) {
 				width: 80%;
@@ -71,10 +71,9 @@ const useStyles = makeStyles(theme => ({
 function ParentPanel(props) {
 	const [ catName, setCatName ] = useState('');
 	const [ description, setDescription ] = useState('');
-	const [ startDate, setStartDate ] = useState(Date.now());
-	const [ values, setValues ] = useState({ name: '', id: 0 });
+	const [ dueDate, setDueDate ] = useState(Date.now());
+	const [ categoryId, setCategoryId ] = useState(0);
 	const classes = useStyles();
-
 	const handleNewCategory = e => {
 		e.preventDefault();
 		props.doCreateCategory({ name: catName });
@@ -83,6 +82,9 @@ function ParentPanel(props) {
 
 	const handleNewTask = e => {
 		e.preventDefault();
+		const { assigneeId } = props;
+		const newTask = { description, dueDate, categoryId, assigneeId };
+		props.doCreateTask(newTask);
 	};
 
 	return (
@@ -101,7 +103,7 @@ function ParentPanel(props) {
 							autoFocus
 							autoComplete='Category'
 							value={catName}
-							onChange={e => setValues(e.target.value)}
+							onChange={e => setCatName(e.target.value)}
 						/>
 					</Grid>
 				</Grid>
@@ -115,7 +117,7 @@ function ParentPanel(props) {
 				</Button>
 			</form>
 			<h2>Create Task</h2>
-			<form className={classes.form}>
+			<form className={classes.form} onSubmit={handleNewTask}>
 				<Grid container spacing={2}>
 					<Grid item xs={12}>
 						<TextField
@@ -131,40 +133,43 @@ function ParentPanel(props) {
 						/>
 					</Grid>
 				</Grid>
-				<div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-					<FormControl className={classes.formControl}>
-						<InputLabel shrink>Category</InputLabel>
-						<Select
-							value={values.name}
-							onChange={e => setValues(e.target.selected)}
-							input={<Input name='category' id='category-input' />}
-							displayEmpty
-							name='category'
-							className={classes.selectEmpty}>
-							{props.categories.map(category => (
-								<MenuItem key={category.id} value={category.id}>
-									{category.name}
-								</MenuItem>
-							))}
-						</Select>
-						<FormHelperText>Label + placeholder</FormHelperText>
-					</FormControl>
-				</div>
-				<FormControl className={classes.formControl}>
-					<DatePicker
-						selected={startDate}
-						onChange={e => setStartDate(e.target.selected)}
-						showTimeSelect
-						dateFormat='Pp'
-					/>
-				</FormControl>
+				<Grid container spacing={4}>
+					<Grid style={{ marginTop: '10px' }} item xs={12}>
+						<FormControl className={classes.formControl}>
+							<InputLabel shrink>Category</InputLabel>
+							<Select
+								value={categoryId}
+								onChange={e => setCategoryId(e.target.value)}
+								// input={<Input name='category' id='category-input' />}
+								className={classes.selectEmpty}>
+								{props.categories.map(category => (
+									<MenuItem key={category.id} value={category.id}>
+										{category.name}
+									</MenuItem>
+								))}
+							</Select>
+							<FormHelperText>Select a category</FormHelperText>
+						</FormControl>
+					</Grid>
+					<Grid style={{ marginBottom: '10px' }} item xs={12}>
+						<FormControl style={{ width: '100%' }} className={classes.formControl}>
+							<DatePicker
+								style={{ width: '100%' }}
+								selected={dueDate}
+								onChange={date => setDueDate(date)}
+								showTimeSelect
+								dateFormat='Pp'
+							/>
+						</FormControl>
+					</Grid>
+				</Grid>
 				<Button
 					type='submit'
 					fullWidth
 					variant='contained'
 					style={{ color: '#FFFFFF', backgroundColor: '#2439A8' }}
 					className={classes.submit}>
-					Create Category
+					Create Task
 				</Button>
 			</form>
 			<Footer />
@@ -172,6 +177,6 @@ function ParentPanel(props) {
 	);
 }
 
-const mapStateToProps = state => ({ categories: state.tasks.categories });
+const mapStateToProps = state => ({ categories: state.tasks.categories, assigneeId: state.auth.token.id });
 
-export default connect(mapStateToProps, { doCreateCategory })(ParentPanel);
+export default connect(mapStateToProps, { doCreateCategory, doCreateTask })(ParentPanel);

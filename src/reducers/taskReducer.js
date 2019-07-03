@@ -16,10 +16,7 @@ export default (state = initialState, action) => {
 			return { ...state, categories: payload, errors: null };
 		case types.CREATE_CATEGORY_FAILURE:
 			return { ...state, categories: [], errors: null };
-		case types.CREATE_TASK_SUCCESS:
-			return { ...state };
-		case types.CREATE_TASK_FAILURE:
-			return { ...state };
+
 		default:
 			return state;
 	}

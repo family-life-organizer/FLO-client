@@ -1,6 +1,5 @@
 import types from './';
 import { customAuth } from '../api/customAuth';
-import api from '../api/customApi';
 import { checkAddMemberInputs } from '../utils/validators';
 
 export const doGetCategories = () => async dispatch => {
@@ -23,16 +22,6 @@ export const doGetFamilyMembers = () => async dispatch => {
 	}
 };
 
-export const doGetSingleUser = id => async dispatch => {
-	dispatch({ type: types.GET_SINGLE_USER_START });
-	try {
-		const response = await customAuth().get(`/users/${id}`);
-		console.log(response);
-	} catch (error) {
-		console.log(error);
-	}
-};
-
 export const doUpdateAccount = accountInfo => async dispatch => {
 	dispatch({ type: types.UPDATE_ACCOUNT_START });
 	try {
@@ -50,7 +39,8 @@ export const doAddFamilyMember = addMemberDetails => async dispatch => {
 		return dispatch({ type: types.ADD_FAMILY_MEMBER_FAILURE, payload: errors });
 	}
 	try {
-		const response = await customAuth().post('/addUser', addMemberDetails);
+		const { username, password } = addMemberDetails;
+		const response = await customAuth().post('/addUser', { username, password });
 		dispatch({ type: types.ADD_FAMILY_MEMBER_SUCCESS, payload: response.data });
 	} catch (error) {
 		dispatch({ type: types.ADD_FAMILY_MEMBER_FAILURE, payload: error.response.data });
@@ -58,19 +48,13 @@ export const doAddFamilyMember = addMemberDetails => async dispatch => {
 };
 
 export const doCreateTask = newTask => async dispatch => {
-	/*
-Payload: {
-    description: TEXT,
-    dueDate: DATETIME (2019-07-02 04:01:46 +0000)
-    categoryId: INTEGER,
-    assigneeId: INTEGER [optional]
-}	*/
 	dispatch({ type: types.CREATE_TASK_START });
 	try {
 		const response = await customAuth().post('/tasks', newTask);
-		console.log(response);
+		const res = await customAuth().get(`/users/${newTask.assigneeId}`);
+		dispatch({ type: types.CREATE_TASK_SUCCESS, payload: res.data.data });
 	} catch (error) {
-		console.log(error);
+		dispatch({ type: types.CREATE_TASK_FAILURE, payload: error.response.data });
 	}
 };
 

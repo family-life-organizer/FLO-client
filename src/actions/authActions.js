@@ -30,7 +30,8 @@ export const doRegisterAccount = accountInfo => async dispatch => {
 		if (!isValid) {
 			dispatch({ type: types.REGISTER_FAILURE, payload: errors });
 		} else {
-			const response = await api.post('/signup', accountInfo);
+			const { email, password, username, firstName, lastName } = accountInfo;
+			const response = await api.post('/signup', { email, password, username, firstName, lastName });
 			dispatch({ type: types.REGISTER_SUCCESS, payload: response.data });
 		}
 	} catch (error) {

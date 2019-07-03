@@ -164,8 +164,12 @@ function MenuAppBar(props) {
 								}}
 								open={open}
 								onClose={handleClose}>
-								<MenuItem onClick={handleClose}>Profile</MenuItem>
-								<MenuItem onClick={handleClose}>My account</MenuItem>
+								<Link to='/app'>
+									<MenuItem onClick={handleClose}>Home</MenuItem>
+								</Link>
+								<Link to='/profile'>
+									<MenuItem onClick={handleClose}>Profile</MenuItem>
+								</Link>
 							</Menu>
 						</div>
 					)}
@@ -204,7 +208,9 @@ function MenuAppBar(props) {
 						<ListItemIcon>
 							<Person />
 						</ListItemIcon>
-						<ListItemText primary='Family Members' onClick={props.doGetFamilyMembers} />
+						<Link to='/family'>
+							<ListItemText primary='Family Members' />
+						</Link>
 					</ListItem>
 					<ListItem button>
 						<ListItemIcon>

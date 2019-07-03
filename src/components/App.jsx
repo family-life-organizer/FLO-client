@@ -10,6 +10,7 @@ import CssBaseLine from '@material-ui/core/CssBaseline';
 import jwt_decode from 'jwt-decode';
 import BadgerCalendar from './application/ui/BadgerCalendar';
 import BadgerProfile from './application/ui/BadgerProfile';
+import BadgerFamily from './application/ui/BadgerFamily';
 import ParentPanel from './application/ui/BadgerTask/ParentPanel';
 
 class App extends Component {
@@ -50,6 +51,7 @@ class App extends Component {
 					<PrivateRoute path='/calendar' component={BadgerCalendar} />
 					<PrivateRoute path='/profile' component={BadgerProfile} />
 					<PrivateRoute path='/tasks' component={ParentPanel} />
+					<PrivateRoute path='/family' component={BadgerFamily} />
 					<PrivateRoute path='/app' component={FloApp} />
 					<Route exact path='/' render={() => <Onboard handleSubmit={this.onHandleSubmit} />} />
 				</Switch>
