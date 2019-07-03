@@ -6,7 +6,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import moment from 'moment'
+import moment from "moment";
 
 const TaskCard = styled.div`
   display: flex;
@@ -43,9 +43,9 @@ function TaskComponent(props) {
   return (
     <TaskCard>
       <Card className={classes.card}>
-      {!props.task && (
-        <React.Fragment>
-        <CardContent>
+        {!props.task && !props.isAdmin && (
+          <React.Fragment>
+            <CardContent>
               <Typography
                 style={{ fontWeight: "bolder" }}
                 variant="h5"
@@ -58,8 +58,37 @@ function TaskComponent(props) {
                 Now you can go and play
               </Typography>
             </CardContent>
-        </React.Fragment>
-      )}
+          </React.Fragment>
+        )}
+        {!props.task && props.isAdmin && (
+          <React.Fragment>
+            <CardContent>
+              <Typography
+                style={{ fontWeight: "bolder" }}
+                variant="h5"
+                component="h2"
+              >
+                Your Family has no Task at the moment
+              </Typography>
+              <br />
+              <Typography variant="h6" component="h3">
+                You can start by creating tasks
+              </Typography>
+            </CardContent>
+            <CardActions style={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                fullWidth
+                variant="contained"
+                style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
+                className={classes.submit}
+                size="medium"
+                onClick={props.createTask}
+              >
+               Create Tasks
+              </Button>
+            </CardActions>
+          </React.Fragment>
+        )}
         {props.task && (
           <React.Fragment>
             <CardContent>
@@ -72,46 +101,50 @@ function TaskComponent(props) {
               </Typography>
               <br />
               <Typography variant="h6" component="h3">
-                { moment(props.task.dueDate).format('llll')}
+                {moment(props.task.dueDate).format("llll")}
               </Typography>
             </CardContent>
             <CardActions style={{ display: "flex", justifyContent: "center" }}>
               {!props.isAdmin && (
                 <Button
-                fullWidth
-                variant="contained"
-                style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
-                className={classes.submit}
-                size="small"
-                onClick={props.completeTask}
-              >
-                Complete
-              </Button>
+                  fullWidth
+                  variant="contained"
+                  style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
+                  className={classes.submit}
+                  size="small"
+                  onClick={props.completeTask}
+                >
+                  Complete
+                </Button>
               )}
-              { props.isAdmin && props.task.status !=='approved' ? (
+              {props.isAdmin && props.task.status !== "approved" ? (
                 <Button
-                fullWidth
-                variant="contained"
-                style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
-                className={classes.submit}
-                size="small"
-                onClick={() => props.approveTask('approved')}
-              >
-                Approve
-              </Button>
-              ) : ''}
-              { props.isAdmin && props.task.status === 'completed' ? (
+                  fullWidth
+                  variant="contained"
+                  style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
+                  className={classes.submit}
+                  size="small"
+                  onClick={() => props.approveTask("approved")}
+                >
+                  Approve
+                </Button>
+              ) : (
+                ""
+              )}
+              {props.isAdmin && props.task.status === "completed" ? (
                 <Button
-                fullWidth
-                variant="contained"
-                style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
-                className={classes.submit}
-                size="small"
-                onClick={() => props.approveTask('declined')}
-              >
-                Reject
-              </Button>
-              ) : ''}
+                  fullWidth
+                  variant="contained"
+                  style={{ color: "#FFFFFF", backgroundColor: "#2439A8" }}
+                  className={classes.submit}
+                  size="small"
+                  onClick={() => props.approveTask("declined")}
+                >
+                  Reject
+                </Button>
+              ) : (
+                ""
+              )}
             </CardActions>
           </React.Fragment>
         )}
